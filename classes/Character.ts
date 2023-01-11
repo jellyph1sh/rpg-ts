@@ -1,12 +1,14 @@
+import { Attack } from "./Attack.ts"
+
 export class Character {
-    name:string = ""
+    name: string = ""
     atkValue: number = 50
     defValue: number = 40
     atkSpeed: number = 50
     maxHealth: number =100
     HP: number =100
     
-    constructor( name:string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
+    constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
         this. name = name
         this.atkValue = atkValue
         this.defValue = defValue
@@ -17,7 +19,8 @@ export class Character {
     }
 
     hit(target: Character) {
-
+        const AttackSimple = new Attack(target, this.atkValue, "Physical")
+        AttackSimple.ApplyDmg()
     }
 
     Heal(healValue: number){
@@ -39,7 +42,7 @@ export class Character {
     }
 
     CanBeHeal(): boolean{
-        if(this.HP <= 0 || this.HP ==this.maxHealth){
+        if(this.HP <= 0 || this.HP == this.maxHealth){
             console.log(`no heal`)
             return false
         }else{
@@ -56,6 +59,4 @@ export class Character {
         }
     }
 }
-
-            
 
