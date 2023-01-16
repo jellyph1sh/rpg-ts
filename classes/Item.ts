@@ -1,8 +1,8 @@
 export class Item {
-    Effect:string = "";
-    Amount:number = 1;
+    public effect:string;
+    public amount = 1;
     
     constructor(effect:string) {
-        this.Effect = effect
+        this.effect = effect
     }
 }
