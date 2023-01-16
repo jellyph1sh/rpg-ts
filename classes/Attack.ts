@@ -1,4 +1,5 @@
 /* Class Attack */
+import { Character } from "./Character.ts";
 
 export class Attack {
     damage :number = 0;
@@ -21,15 +22,3 @@ export class Attack {
         console.log(`Damage : ${this.damage}, enemy defense : ${this.target.defValue} ==> damage apply : ${this.damage * (1 - (this.target.defValue/100))} \nEnemy life : ${this.target.HP}`)
     }
 }
-
-class Character{
-    name :string = "Enemy";
-    HP :number = 100;
-    maxHealth :number = 100;
-    defValue :number = 10;
-}
-
-const Enemy1 = new Character();
-const Attack1 = new Attack(Enemy1, 30, "Physical");
-Attack1.ApplyDmg()
-
