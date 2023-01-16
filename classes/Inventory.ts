@@ -1,3 +1,5 @@
+import { Item } from "./Item.ts"
+
 export class Inventory {
     Items:Item[] = [];
 
@@ -11,14 +13,5 @@ export class Inventory {
 
     ShowInventory() {
         console.log(this.Items)
-    }
-}
-
-class Item {
-    Effect:string = "";
-    Amount:number = 1;
-
-    constructor(effect:string){
-        this.Effect = effect;
     }
 }
