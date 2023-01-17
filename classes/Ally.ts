@@ -9,7 +9,14 @@ export class Ally extends Character {
         this.skills = skills;
     }
 
-    private UseSkill(skillIndex, target:Character) {
+    private UseSkill(skillName:String, target:Character) {
+        const usedSkill:Skill;
+        for (const skill of this.skills) {
+            if (skill.name === skillName) {
+                usedSkill = skill
+            }
+        }
+        console.log(usedSkill);
         
     }
 }
