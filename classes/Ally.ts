@@ -1,4 +1,5 @@
 import { Character } from "./Character.ts"
+import { Skill } from "./Skill.ts";
 
 export class Ally extends Character {
     private mana = 100;
@@ -9,14 +10,14 @@ export class Ally extends Character {
         this.skills = skills;
     }
 
-    private UseSkill(skillName:String, target:Character) {
-        const usedSkill:Skill;
+    public UseSkill(skillName:string, target:Character) {
+        let usedSkill:Skill;
         for (const skill of this.skills) {
             if (skill.name === skillName) {
-                usedSkill = skill
+                usedSkill = skill;
+                this.mana -= skill.cost
+                console.log(usedSkill, target, this.mana);
             }
         }
-        console.log(usedSkill);
-        
     }
 }
