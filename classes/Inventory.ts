@@ -1,17 +1,17 @@
 import { Item } from "./Item.ts"
 
 export class Inventory {
-    Items:Item[] = [];
+    private items:Item[] = [];
 
-    AddItem(item:Item):void {
-        this.Items.push(item)
+    public AddItem(item:Item):void {
+        this.items.push(item)
     }
 
-    RemoveItem(itemIndex:number):void {
-        this.Items.splice(itemIndex, 1)
+    public RemoveItem(itemIndex:number):void {
+        this.items.splice(itemIndex, 1)
     }
 
-    ShowInventory() {
-        console.log(this.Items)
+    public ShowInventory() {
+        console.log(this.items)
     }
 }

@@ -2,9 +2,9 @@
 import { Character } from "./Character.ts";
 
 export class Attack {
-    damage :number = 0;
-    type :string = "";
-    target :Character;
+    private damage:number;
+    private type:string;
+    private target :Character;
 
     constructor(target :Character, damage :number, type :string) {
         this.target = target
@@ -12,13 +12,11 @@ export class Attack {
         this.type = type
     }
 
-    ApplyDmg() {
-        console.log(`Enemy life before Attack : ${this.target.HP}`)
+    public ApplyDmg() {
         if (this.type === "Physical") {
             this.target.HP -= (this.damage * (1 - (this.target.defValue/100)))
         } else {
             this.target.HP -= this.damage
         }
-        console.log(`Damage : ${this.damage}, enemy defense : ${this.target.defValue} ==> damage apply : ${this.damage * (1 - (this.target.defValue/100))} \nEnemy life : ${this.target.HP}`)
     }
 }

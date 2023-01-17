@@ -1,12 +1,12 @@
 import { Attack } from "./Attack.ts"
 
 export class Character {
-    name: string = ""
-    atkValue: number = 50
-    defValue: number = 40
-    atkSpeed: number = 50
-    maxHealth: number =100
-    HP: number =100
+    name: string;
+    atkValue: number;
+    defValue: number;
+    atkSpeed: number;
+    maxHealth: number;
+    HP: number;
     
     constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
         this. name = name
