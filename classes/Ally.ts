@@ -20,4 +20,8 @@ export class Ally extends Character {
             }
         }
     }
+
+    public Turn(){
+
+    }
 }
