@@ -1,3 +1,4 @@
+
 import { Ally } from "./Ally.ts"
 import { Character } from "./Character.ts"
 
@@ -6,14 +7,12 @@ export class Fight {
     private allyTeam : Ally[]
     private enemyTeam : Character[]
     private order : Character[]
-    private characterTurn :Character
     private whoTurn  = 1
 
     constructor(allyTeam : Ally[], enemyTeam :Character[] ){
         this.allyTeam  = allyTeam
         this.enemyTeam = enemyTeam
         this.order = this.SetFightOrder()
-        this.characterTurn = this.order[0]
     }
 
     private SetFightOrder() : Character[]{
