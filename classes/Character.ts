@@ -43,7 +43,6 @@ export class Character {
 
     CanBeHeal(): boolean{
         if(this.HP <= 0 || this.HP == this.maxHealth){
-            console.log(`no heal`)
             return false
         }else{
             return true
@@ -54,7 +53,6 @@ export class Character {
         if (this.HP <= 0){
             return true
         }else{
-            console.log(`object not used`)
             return false
         }
     }
