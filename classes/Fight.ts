@@ -2,7 +2,6 @@
 import { Ally } from "./Ally.ts"
 import { Character } from "./Character.ts"
 import { Color } from "./Color.ts";
-import { Skill } from "./Skill.ts";
 
 export class Fight {
     private allyTeam : Ally[]
@@ -154,12 +153,3 @@ export class Fight {
     }
 }
 
-const atake = new Skill(15,"physyqye", "ff", 14)
-
-const mage = new Ally([atake], "gordalfe", 20, 10,50,120)
-const gladia = new Ally([atake], "link", 70, 40,40,150)
-const slim = new Character( "slim", 50, 30,80,150)  
-const goleme = new Character( "goleme", 20, 60,10,150)
-const combat = new Fight([mage,gladia],[goleme,slim])
-
-combat.TurnFigth()
