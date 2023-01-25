@@ -3,7 +3,7 @@ import { Orientation, Room, RoomType } from "./Room.ts";
 
 export class Floor {
     private ActualPostion = 12;
-    private virtualFloor:number[][] = [[0,0,0,0,0],[0,0,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+    public virtualFloor:number[][] = [[0,0,0,0,0],[0,0,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]];
     private ActualRoom:Room = new Room(this.virtualFloor[Math.floor(this.ActualPostion/5)][this.ActualPostion%5], this.ActualPostion) 
     private _maxRooms = 0;
 
@@ -151,6 +151,7 @@ export class Floor {
         
             }
         } else {
+            this.virtualFloor[Math.floor(position/5)][position%5] = 5
             return
         }
     }
@@ -169,6 +170,3 @@ enum hWalls {
     downWall =      "└─────────────────┘\n",
     downOpenWall =  "└──────┐   ┌──────┘\n"
 }
-
-const floor1 = new Floor(20);
-floor1.ShowFloor()
