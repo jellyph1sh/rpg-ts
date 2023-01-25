@@ -2,8 +2,16 @@ import { Character } from "./Character.ts"
 import { Skill } from "./Skill.ts";
 
 export class Ally extends Character {
-    private mana = 100;
+    private _mana = 100;
     private skills:Skill[];
+
+    public get mana() {
+        return this._mana
+    }
+
+    public set mana(value:number) {
+        this._mana = Math.min(Math.max(value, 0), 100)
+    }
 
     constructor(skills:Skill[], name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number) {
         super(name, atkValue, defValue, atkSpeed, maxHealth)
