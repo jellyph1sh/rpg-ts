@@ -4,7 +4,7 @@ import { Menu } from "./Menu.ts";
 import { Inventory } from "./Inventory.ts";
 
 export class GameManager {
-    public team:Group;
+    public team:Group | null = null;
 
     public SelectAllyCharacters(allies:Ally[]) {
         const alliesName:string[] = [];
