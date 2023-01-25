@@ -33,7 +33,7 @@ export class Menu {
         while (!enter) {
             this.Display();
             const buf = new Uint8Array(3);
-            Deno.stdin.setRaw(true, { cbreak: true });
+            Deno.stdin.setRaw(true);
             Deno.stdin.readSync(buf);
             Deno.stdin.setRaw(false);
             if (buf[0] === 27 && buf[1] === 91, buf[2] === 65) {
