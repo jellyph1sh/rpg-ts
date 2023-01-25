@@ -3,6 +3,7 @@ import { Ally } from "./Ally.ts"
 import { Character } from "./Character.ts"
 import { Color } from "./Color.ts";
 
+
 export class Fight {
     private allyTeam : Ally[]
     private enemyTeam : Character[]
@@ -45,17 +46,19 @@ export class Fight {
 
     // retourne vrais si c'est le joueur qui gagnier le fight sinon retour faux
     public  async TurnFigth() : Promise<boolean>{
-        
+        console.clear();
+        console.log(this.DisplayHP())
         console.log(`Turn ${this.whoTurn} \n`)
+        await this.delay(2)
         for (const character of this.order){
             if(!character.CanBeRevive() && !this.IsTeamDead(this.allyTeam) && !this.IsTeamDead(this.enemyTeam)){
                 if (this.enemyTeam.indexOf(character) == -1){
                     console.log(`to the turn of ${character.name}` )
-                    await this.delay(4)
                     this.TurnAlly(character)
-                }else{
+                    await this.delay(2)
                     console.clear();
                     console.log(this.DisplayHP())
+                }else{
                     console.log(`to the turn of ${character.name}`)
                     this.TurnEnemy(character)
                     await this.delay(4)
@@ -67,7 +70,6 @@ export class Fight {
         }
         this.whoTurn++
         this.order = this.SetFightOrder()
-        await this.delay(4)
         console.clear();
         console.log(this.DisplayHP())
         return this.nextTurn()

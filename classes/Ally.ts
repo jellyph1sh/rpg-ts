@@ -31,10 +31,10 @@ export class Ally extends Character {
         }
     }
 
-    public Turn(enemyTeam: Character[], fight: Fight){
+    public  Turn(enemyTeam: Character[], fight: Fight){
         const enemieName: string[] = []
         const targetList: Character[] = []
-        const chooseAction = new Menu("titre", "description",["single attack","skil","inventory"])
+        const chooseAction = new Menu(fight.DisplayHP(), `to the turn of ${this.name} `,["single attack","skil","inventory"])
         const choose =chooseAction.Naviguate()
         if (choose == 0){
             for(const enemy of enemyTeam){
@@ -47,6 +47,7 @@ export class Ally extends Character {
             const menu = new Menu(fight.DisplayHP(),"qui ataque",enemieName)
             const target = menu.Naviguate()
             this.hit(targetList[target])
+            prompt("")
         }
     }
 }

@@ -26,7 +26,7 @@ export class Character {
 
     }
 
-    hit(target: Character) {
+     hit(target: Character) {
         const AttackSimple = new Attack(target, this.atkValue, "Physical")
         const degat =AttackSimple.ApplyDmg()
         console.log(`${this.name} did ${degat} damage on ${target.name} `)
