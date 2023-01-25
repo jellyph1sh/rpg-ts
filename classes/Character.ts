@@ -12,7 +12,7 @@ export class Character {
         return this._HP 
     }
 
-    private set HP(value: number){
+    public set HP(value: number){
         this._HP = Math.max(Math.min(value,100),0)
     } 
     
@@ -28,7 +28,8 @@ export class Character {
 
     hit(target: Character) {
         const AttackSimple = new Attack(target, this.atkValue, "Physical")
-        AttackSimple.ApplyDmg()
+        const degat =AttackSimple.ApplyDmg()
+        console.log(`${this.name} did ${degat} damage on ${target.name} `)
     }
 
     Heal(healValue: number){

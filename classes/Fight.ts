@@ -16,12 +16,13 @@ export class Fight {
         this.EnemyAnnouncement()
     }
    
-    private EnemyAnnouncement(){
+    private  EnemyAnnouncement(){
         console.clear();
         console.log(`the enemies appear are :`) 
         for(const enemy of this.enemyTeam){
             console.log(`- ${enemy.name}`)
         }
+        prompt("")
     }
 
 
@@ -43,37 +44,42 @@ export class Fight {
     }   
 
     // retourne vrais si c'est le joueur qui gagnier le fight sinon retour faux
-    public TurnFigth() : boolean{
+    public  async TurnFigth() : Promise<boolean>{
+        
         console.log(`Turn ${this.whoTurn} \n`)
         for (const character of this.order){
             if(!character.CanBeRevive() && !this.IsTeamDead(this.allyTeam) && !this.IsTeamDead(this.enemyTeam)){
                 if (this.enemyTeam.indexOf(character) == -1){
+                    console.log(`to the turn of ${character.name}` )
+                    await this.delay(4)
                     this.TurnAlly(character)
                 }else{
+                    console.clear();
+                    console.log(this.DisplayHP())
                     console.log(`to the turn of ${character.name}`)
                     this.TurnEnemy(character)
-                    prompt("")
+                    await this.delay(4)
                     console.clear();
-                    this.DisplayHP()
+                    console.log(this.DisplayHP())
                     this.order = this.SetFightOrder()
                 }
             }
         }
         this.whoTurn++
         this.order = this.SetFightOrder()
-        prompt("")
+        await this.delay(4)
         console.clear();
-        this.DisplayHP()
+        console.log(this.DisplayHP())
         return this.nextTurn()
     }
 
-    private nextTurn() : boolean {
+    private nextTurn() : Promise<boolean> {
         if (this.IsTeamDead(this.enemyTeam)){
             console.log("win")
-            return true
+            return Promise.resolve(true)
         } else if (this.IsTeamDead(this.allyTeam)){
             console.log("loose")
-            return false
+            return Promise.resolve(false)
         } else {
             return this.TurnFigth()
         }
@@ -88,7 +94,7 @@ export class Fight {
                 target = this.allyTeam[Math.floor(Math.random() * this.allyTeam.length)]
             }
             enemy.hit(target)
-        }else{
+        }else{   
             enemy.hit(this.allyLessHP())
         }
     }
@@ -96,11 +102,9 @@ export class Fight {
     private TurnAlly(allyAsset :Character){
         for(const ally of this.allyTeam){
             if (ally.name === allyAsset.name){
-                console.log(`to the turn of ${ally.name}` )
-                prompt("")
-                ally.Turn()
+                ally.Turn(this.enemyTeam,this)
                 console.clear();
-                this.DisplayHP()
+                console.log(this.DisplayHP())
                 this.order = this.SetFightOrder()
             }
         }
@@ -116,20 +120,20 @@ export class Fight {
     }
 
 
-    public DisplayHP(){
-        console.log("here are the HP of your team: \n")
+    public DisplayHP():string{
+        let display = ""
+        display= display +("here are the HP of your team: \n")
         for (const ally of this.allyTeam){
-            this.DysplayHPBar(ally as Character)
+            display= display +this.DysplayHPBar(ally as Character)
         }
-        console.log("\nhere are the HP of the enemies:\n ")
+        display= display +("\nhere are the HP of the enemies:\n ")
         for (const enemy of this.enemyTeam ){
-            this.DysplayHPBar(enemy)
+            display= display +this.DysplayHPBar(enemy)
         }
-        console.log(" ")
+        return display
     }
     
-    private DysplayHPBar(character :Character){
-        console.log(`- ${character.name} as ${character.HP} HP`)
+    private DysplayHPBar(character :Character):string{
         const percentageHP = Math.floor(character.HP*100/character.maxHealth)
         let HPgreen =""
         let HPred =""
@@ -139,7 +143,7 @@ export class Fight {
         for(let i=percentageHP; i<100;i++){
             HPred = HPred + "■"
         }
-        console.log(Color.green +HPgreen+Color.red+HPred+Color.white ) 
+        return(`- ${character.name} as ${character.HP} HP \n`+Color.green +HPgreen+Color.red+HPred+Color.white +"\n") 
     }
 
     private IsTeamDead(team: Character[]): boolean{
@@ -151,5 +155,12 @@ export class Fight {
         }
         return answer
     }
+
+    delay(n:number){
+        return new Promise(function(resolve){
+            setTimeout(resolve,n*1000);
+        });
+    }
+    
 }
 

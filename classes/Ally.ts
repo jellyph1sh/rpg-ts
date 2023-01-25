@@ -1,5 +1,7 @@
 import { Character } from "./Character.ts"
 import { Skill } from "./Skill.ts";
+import { Menu } from "./Menu.ts";
+import { Fight } from "./Fight.ts";
 
 export class Ally extends Character {
     private _mana = 100;
@@ -29,7 +31,22 @@ export class Ally extends Character {
         }
     }
 
-    public Turn(){
-
+    public Turn(enemyTeam: Character[], fight: Fight){
+        const enemieName: string[] = []
+        const targetList: Character[] = []
+        const chooseAction = new Menu("titre", "description",["single attack","skil","inventory"])
+        const choose =chooseAction.Naviguate()
+        if (choose == 0){
+            for(const enemy of enemyTeam){
+                if(!enemy.CanBeRevive()){
+                    enemieName.push(enemy.name)
+                    targetList.push(enemy)
+                }
+            }
+            console.log("test")
+            const menu = new Menu(fight.DisplayHP(),"qui ataque",enemieName)
+            const target = menu.Naviguate()
+            this.hit(targetList[target])
+        }
     }
 }
