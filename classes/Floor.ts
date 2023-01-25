@@ -57,15 +57,15 @@ export class Floor {
                     roomString += hWalls.downWall
                 }
             } else {
-                roomString = "       \n       \n       \n       \n"
+                roomString = "                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n"
             }
             parseMap.push(roomString.split("\n"))
         }
         for (let n=0; n<5;n++) {
             for (let i=0; i<parseMap[0].length-1; i++) {
                 for (let j=0; j<5;j++) {
-                    if (j+5*n == this.ActualPostion && (i == 1 || i == 2)) {
-                        parseMap[j+5*n][i] = parseMap[j+5*n][i].substring(0,3) + "☐" + parseMap[j+5*n][i].substring(4)
+                    if (j+5*n == this.ActualPostion && (i == 5 || i == 6)) {
+                        parseMap[j+5*n][i] = parseMap[j+5*n][i].substring(0,9) + "☐" + parseMap[j+5*n][i].substring(10)
                     }
                     stringMap += parseMap[j+5*n][i]
                 }
@@ -157,17 +157,17 @@ export class Floor {
 }
 
 enum vWalls {
-    Wall = "│     │\n│     │\n",
-    OpenLeftWall = "┘     │\n┐     │\n",
-    OpenRightWall = "│     └\n│     ┌\n",
-    OpenBothWall = "┘     └\n┐     ┌\n"
+    Wall = "│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n",
+    OpenLeftWall = "│                 │\n│                 │\n│                 │\n┘                 │\n┐                 │\n│                 │\n│                 │\n│                 │\n",
+    OpenRightWall = "│                 │\n│                 │\n│                 │\n│                 └\n│                 ┌\n│                 │\n│                 │\n│                 │\n",
+    OpenBothWall = "│                 │\n│                 │\n│                 │\n┘                 └\n┐                 ┌\n│                 │\n│                 │\n│                 │\n"
 }
 
 enum hWalls {
-    upWall =        "┌─────┐\n",
-    upOpenWall =    "┌─┘ └─┐\n",
-    downWall =      "└─────┘\n",
-    downOpenWall =  "└─┐ ┌─┘\n"
+    upWall =        "┌─────────────────┐\n",
+    upOpenWall =    "┌──────┘   └──────┐\n",
+    downWall =      "└─────────────────┘\n",
+    downOpenWall =  "└──────┐   ┌──────┘\n"
 }
 
 const floor1 = new Floor(20);
