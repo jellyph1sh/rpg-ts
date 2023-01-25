@@ -6,7 +6,15 @@ export class Character {
     defValue: number;
     atkSpeed: number;
     maxHealth: number;
-    HP: number;
+    _HP: number;
+
+    public get HP(){
+        return this._HP 
+    }
+
+    private set HP(value: number){
+        this._HP = Math.max(Math.min(value,100),0)
+    } 
     
     constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
         this. name = name
@@ -14,7 +22,7 @@ export class Character {
         this.defValue = defValue
         this.atkSpeed = atkSpeed
         this.maxHealth = maxHealth
-        this.HP = maxHealth
+        this._HP = maxHealth
 
     }
 

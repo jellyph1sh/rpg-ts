@@ -2,7 +2,7 @@
 import { Ally } from "./Ally.ts"
 import { Character } from "./Character.ts"
 import { Color } from "./Color.ts";
-
+import { Skill } from "./Skill.ts";
 
 export class Fight {
     private allyTeam : Ally[]
@@ -18,6 +18,7 @@ export class Fight {
     }
    
     private EnemyAnnouncement(){
+        console.clear();
         console.log(`the enemies appear are :`) 
         for(const enemy of this.enemyTeam){
             console.log(`- ${enemy.name}`)
@@ -44,7 +45,7 @@ export class Fight {
 
     // retourne vrais si c'est le joueur qui gagnier le fight sinon retour faux
     public TurnFigth() : boolean{
-        console.log(` \n Turn ${this.whoTurn} \n`)
+        console.log(`Turn ${this.whoTurn} \n`)
         for (const character of this.order){
             if(!character.CanBeRevive() && !this.IsTeamDead(this.allyTeam) && !this.IsTeamDead(this.enemyTeam)){
                 if (this.enemyTeam.indexOf(character) == -1){
@@ -52,7 +53,7 @@ export class Fight {
                 }else{
                     console.log(`to the turn of ${character.name}`)
                     this.TurnEnemy(character)
-                    prompt()
+                    prompt("")
                     console.clear();
                     this.DisplayHP()
                     this.order = this.SetFightOrder()
@@ -61,7 +62,7 @@ export class Fight {
         }
         this.whoTurn++
         this.order = this.SetFightOrder()
-        prompt()
+        prompt("")
         console.clear();
         this.DisplayHP()
         return this.nextTurn()
@@ -97,7 +98,7 @@ export class Fight {
         for(const ally of this.allyTeam){
             if (ally.name === allyAsset.name){
                 console.log(`to the turn of ${ally.name}` )
-                prompt()
+                prompt("")
                 ally.Turn()
                 console.clear();
                 this.DisplayHP()
@@ -116,7 +117,7 @@ export class Fight {
     }
 
 
-    private DisplayHP(){
+    public DisplayHP(){
         console.log("here are the HP of your team: \n")
         for (const ally of this.allyTeam){
             this.DysplayHPBar(ally as Character)
@@ -133,7 +134,7 @@ export class Fight {
         const percentageHP = Math.floor(character.HP*100/character.maxHealth)
         let HPgreen =""
         let HPred =""
-        for(let i=1; i<percentageHP;i++){
+        for(let i=1; i<=percentageHP;i++){
            HPgreen = HPgreen + "■"
         }
         for(let i=percentageHP; i<100;i++){
@@ -152,3 +153,13 @@ export class Fight {
         return answer
     }
 }
+
+const atake = new Skill(15,"physyqye", "ff", 14)
+
+const mage = new Ally([atake], "gordalfe", 20, 10,50,120)
+const gladia = new Ally([atake], "link", 70, 40,40,150)
+const slim = new Character( "slim", 50, 30,80,150)  
+const goleme = new Character( "goleme", 20, 60,10,150)
+const combat = new Fight([mage,gladia],[goleme,slim])
+
+combat.TurnFigth()
