@@ -46,7 +46,7 @@ export class Ally extends Character {
             console.log("test")
             const menu = new Menu(fight.DisplayHP(),"qui ataque",enemieName)
             const target = menu.Naviguate()
-            this.hit(targetList[target])
+            this.hit([targetList[target]])
             prompt("")
         }
     }
