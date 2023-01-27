@@ -13,7 +13,7 @@ export class Character {
     }
 
     public set HP(value: number){
-        this._HP = Math.max(Math.min(value,100),0);
+        this._HP = Math.max(Math.min(value,this.maxHealth),0);
     } 
     
     constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){

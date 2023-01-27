@@ -26,10 +26,18 @@ export class Group {
         return repont
     }
 
-    useItem(indexItem:number, target :Ally):boolean{
+    UseItem(indexItem:number, target :Ally):boolean{
         if(this.inventory.items[indexItem].effect == "Revive" ){
             if (target.CanBeRevive()){
-                target.Revive(50)
+                target.Revive(this.inventory.items[indexItem].value)
+                return true
+            }else{
+                return false
+            }
+        }
+        if(this.inventory.items[indexItem].effect == "Heal" ){
+            if (target.CanBeHeal()){
+                target.Heal(this.inventory.items[indexItem].value)
                 return true
             }else{
                 return false
