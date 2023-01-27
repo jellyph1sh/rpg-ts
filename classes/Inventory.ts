@@ -1,7 +1,11 @@
 import { Item } from "./Item.ts"
 
 export class Inventory {
-    private items:Item[] = [];
+    private _items:Item[] = [];
+    
+    public get items(){
+        return this._items
+    }
 
     public AddItem(item:Item):void {
         this.items.push(item)
