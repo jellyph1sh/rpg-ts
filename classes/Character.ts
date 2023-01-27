@@ -9,27 +9,29 @@ export class Character {
     _HP: number;
 
     public get HP(){
-        return this._HP 
+        return this._HP;
     }
 
     public set HP(value: number){
-        this._HP = Math.max(Math.min(value,100),0)
+        this._HP = Math.max(Math.min(value,100),0);
     } 
     
     constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
-        this. name = name
-        this.atkValue = atkValue
-        this.defValue = defValue
-        this.atkSpeed = atkSpeed
-        this.maxHealth = maxHealth
-        this._HP = maxHealth
+        this. name = name;
+        this.atkValue = atkValue;
+        this.defValue = defValue;
+        this.atkSpeed = atkSpeed;
+        this.maxHealth = maxHealth;
+        this._HP = maxHealth;
 
     }
 
-     hit(target: Character) {
-        const AttackSimple = new Attack(target, this.atkValue, "Physical")
-        const degat =AttackSimple.ApplyDmg()
-        console.log(`${this.name} did ${degat} damage on ${target.name} `)
+    hit(targets: Character[]) {
+        const AttackSimple = new Attack(targets, this.atkValue, "Physical");
+        const degat =AttackSimple.ApplyDmg();
+        for (const target of targets) {
+            console.log(`${this.name} did ${degat} damage on ${target.name}`);
+        }
     }
 
     Heal(healValue: number){

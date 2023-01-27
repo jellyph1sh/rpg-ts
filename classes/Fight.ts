@@ -92,13 +92,13 @@ export class Fight {
     private TurnEnemy(enemy :Character){
         const proba = Math.floor(Math.random() * 100);
         if (proba<80){
-            let target = this.allyTeam.team[Math.floor(Math.random() * this.allyTeam.team.length)]
+            let target = this.allyTeam.team[Math.floor(Math.random() * this.allyTeam.length)];
             while(target.HP <= 0){
-                target = this.allyTeam.team[Math.floor(Math.random() * this.allyTeam.team.length)]
+                target = this.allyTeam.team[Math.floor(Math.random() * this.allyTeam.length)];
             }
-            enemy.hit(target)
-        }else{   
-            enemy.hit(this.allyLessHP())
+            enemy.hit([target]);
+        }else{
+            enemy.hit([this.allyLessHP()]);
         }
     }
 

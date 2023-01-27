@@ -71,7 +71,6 @@ export class Floor {
                 }
                 stringMap += "\n"
             }
-            stringMap += "\n"
         }
         console.log(stringMap);
         console.log(this.virtualFloor);

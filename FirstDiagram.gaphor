@@ -2970,7 +2970,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>input</val>
 </name>
 <typeValue>
-<val>string</val>
+<val>number</val>
 </typeValue>
 </Property>
 <Operation id="4a6a573e-901d-11ed-8040-ad1fe7ae13c1">
@@ -3004,9 +3004,9 @@ existing classes or even new classes with specific responsibilities.</val>
 <ownedAttribute>
 <reflist>
 <ref refid="cf2a3864-901e-11ed-8e76-ad1fe7ae13c1"/>
-<ref refid="d9e0a7bd-901e-11ed-be7a-ad1fe7ae13c1"/>
 <ref refid="0fa2e9f2-901f-11ed-a3c3-ad1fe7ae13c1"/>
 <ref refid="4da16f36-901f-11ed-8b5a-ad1fe7ae13c1"/>
+<ref refid="d9e0a7bd-901e-11ed-be7a-ad1fe7ae13c1"/>
 </reflist>
 </ownedAttribute>
 <ownedOperation>
@@ -3056,27 +3056,10 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>Character</val>
 </typeValue>
 <upperValue>
-<val>*</val>
+<val>3</val>
 </upperValue>
 <upperValue>
-<val>*</val>
-</upperValue>
-</Property>
-<Property id="d9e0a7bd-901e-11ed-be7a-ad1fe7ae13c1">
-<class_>
-<ref refid="07c1fa65-901e-11ed-a669-ad1fe7ae13c1"/>
-</class_>
-<name>
-<val>enemyTeam</val>
-</name>
-<typeValue>
-<val>Character</val>
-</typeValue>
-<upperValue>
-<val>*</val>
-</upperValue>
-<upperValue>
-<val>*</val>
+<val>3</val>
 </upperValue>
 </Property>
 <Property id="0fa2e9f2-901f-11ed-a3c3-ad1fe7ae13c1">
@@ -3207,6 +3190,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="a1ce4d12-9023-11ed-9bf9-ad1fe7ae13c1"/>
 <ref refid="dfd0718e-9023-11ed-841d-ad1fe7ae13c1"/>
 <ref refid="690745b1-9024-11ed-805b-ad1fe7ae13c1"/>
+<ref refid="bda6be29-9195-11ed-addb-900f0c90d558"/>
 </reflist>
 </ownedOperation>
 <package>
@@ -3229,7 +3213,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>245.0</val>
 </width>
 <height>
-<val>148.0</val>
+<val>166.0</val>
 </height>
 <diagram>
 <ref refid="4a67232f-9018-11ed-ae1d-ad1fe7ae13c1"/>
@@ -3502,7 +3486,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 545.0, 640.0)</val>
 </matrix>
 <points>
-<val>[(-46.766397832643065, -203.2301861004426), (-39.37859980865994, -129.82782698582963)]</val>
+<val>[(-46.766397832643065, -185.2301861004426), (-39.37859980865994, -129.82782698582963)]</val>
 </points>
 <head-connection>
 <ref refid="258d5c20-9020-11ed-b5df-ad1fe7ae13c1"/>
@@ -3786,7 +3770,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <ref refid="e2000f87-902a-11ed-8a1f-920f0c90d557"/>
 </class_>
 <name>
-<val>dommage</val>
+<val>damage</val>
 </name>
 <typeValue>
 <val>number</val>
@@ -3982,7 +3966,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>230.0</val>
 </width>
 <height>
-<val>148.0</val>
+<val>166.0</val>
 </height>
 <diagram>
 <ref refid="4a67232f-9018-11ed-ae1d-ad1fe7ae13c1"/>
@@ -4708,7 +4692,7 @@ existing classes or even new classes with specific responsibilities.</val>
 <val>(1.0, 0.0, 0.0, 1.0, 428.20301946486927, 875.3713200052441)</val>
 </matrix>
 <points>
-<val>[(-4.357606695581239, 0.0), (-149.1712982220189, 13.774099266292701)]</val>
+<val>[(-4.357606695581239, 0.0), (-149.1712982220189, 20.547713596190533)]</val>
 </points>
 <head-connection>
 <ref refid="37e44802-917f-11ed-a4be-900f0c90d558"/>
@@ -4766,6 +4750,31 @@ existing classes or even new classes with specific responsibilities.</val>
 <type>
 <ref refid="9e4f2f5f-902d-11ed-8e4e-920f0c90d557"/>
 </type>
+<upperValue>
+<val>*</val>
+</upperValue>
+<upperValue>
+<val>*</val>
+</upperValue>
+</Property>
+<Operation id="bda6be29-9195-11ed-addb-900f0c90d558">
+<class_>
+<ref refid="258cf836-9020-11ed-8358-ad1fe7ae13c1"/>
+</class_>
+<name>
+<val>DisplayGame</val>
+</name>
+</Operation>
+<Property id="d9e0a7bd-901e-11ed-be7a-ad1fe7ae13c1">
+<class_>
+<ref refid="07c1fa65-901e-11ed-a669-ad1fe7ae13c1"/>
+</class_>
+<name>
+<val>enemyTeam</val>
+</name>
+<typeValue>
+<val>Character</val>
+</typeValue>
 <upperValue>
 <val>*</val>
 </upperValue>
