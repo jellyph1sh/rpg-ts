@@ -160,7 +160,7 @@ export class Fight {
         return answer
     }
 
-    delay(n:number){
+    private delay(n:number){
         return new Promise(function(resolve){
             setTimeout(resolve,n*1000);
         });
