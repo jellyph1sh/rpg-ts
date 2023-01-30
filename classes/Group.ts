@@ -14,7 +14,7 @@ export class Group {
         this.inventory = inventory
     }
 
-    setBouttonInventory():string[]{
+    public setBouttonInventory():string[]{
         const repont :string[]=[]
         for(let i=1; i <= this.inventory.items.length; i++){
             repont.push(this.inventory.items[i].name)
@@ -23,7 +23,7 @@ export class Group {
         return repont
     }
 
-    UseItem(indexItem:number, target :Ally):boolean{
+    public UseItem(indexItem:number, target :Ally):boolean{
         let itemtoUse = false
         switch(this.inventory.items[indexItem].effect){
         case "Revive":

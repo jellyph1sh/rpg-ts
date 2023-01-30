@@ -1,12 +1,40 @@
 import { Attack } from "./Attack.ts"
 
 export class Character {
-    name: string;
-    atkValue: number;
-    defValue: number;
-    atkSpeed: number;
-    maxHealth: number;
-    _HP: number;
+    private _name: string;
+    private _atkValue: number;
+    private _defValue: number;
+    private _atkSpeed: number;
+    private _maxHealth: number;
+    private _HP: number;
+
+    constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
+        this._name = name;
+        this._atkValue = atkValue;
+        this._defValue = defValue;
+        this._atkSpeed = atkSpeed;
+        this._maxHealth = maxHealth;
+        this._HP = maxHealth;
+    }
+
+    public get name(){
+        return this._name;
+    }
+    public get atkValue(){
+        return this._atkValue;
+    }
+
+    public get defValue(){
+        return this._defValue;
+    }
+
+    public get atkSpeed(){
+        return this._atkSpeed;
+    }
+
+    public get maxHealth() {
+        return this._maxHealth
+    }
 
     public get HP(){
         return this._HP;
@@ -15,23 +43,14 @@ export class Character {
     public set HP(value: number){
         this._HP = Math.max(Math.min(value,this.maxHealth),0);
     } 
-    
-    constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
-        this. name = name;
-        this.atkValue = atkValue;
-        this.defValue = defValue;
-        this.atkSpeed = atkSpeed;
-        this.maxHealth = maxHealth;
-        this._HP = maxHealth;
+   
 
-    }
-
-    hit(targets: Character[]) {
+    public hit(targets: Character[]) {
         const AttackSimple = new Attack(targets, this.atkValue, "Physical");
         AttackSimple.ApplyDmg();
     }
 
-    Heal(healValue: number){
+    public Heal(healValue: number){
         if (healValue + this.HP >= this.maxHealth) {
             this.HP =this.maxHealth
             console.log(`${this.name} to recover all its life, it has ${this.HP} HP.`)
@@ -41,7 +60,7 @@ export class Character {
         }
     }
 
-    Revive(healPercentage: number) {
+    public Revive(healPercentage: number) {
         if (this.HP <= 0) {
             this.HP= Math.floor(healPercentage * this.maxHealth /100)
             console.log(`${this.name} came back to life with ${this.HP} HP.`)
@@ -49,7 +68,7 @@ export class Character {
         }
     }
 
-    CanBeHeal(): boolean{
+    public CanBeHeal(): boolean{
         if(this.HP <= 0 || this.HP == this.maxHealth){
             return false
         }else{
@@ -57,7 +76,7 @@ export class Character {
         }
     }
 
-    CanBeRevive(): boolean{
+    public CanBeRevive(): boolean{
         if (this.HP <= 0){
             return true
         }else{

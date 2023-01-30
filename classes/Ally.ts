@@ -12,6 +12,7 @@ export class Ally extends Character {
         return this._mana
     }
 
+
     public set mana(value:number) {
         this._mana = Math.min(Math.max(value, 0), 100)
     }
@@ -96,9 +97,9 @@ private AllyAttack(enemyTeam: Character[], fight: Fight){
         }
     }
 
-    restoreMana(mana: number){
+   public restoreMana(mana: number){
         if (mana + this._mana >= 100) {
-            this.HP =this.maxHealth
+            this.mana =100
             console.log(`${this.name}has found all his mana, it has ${this._mana} mana.`)
         }else{
             this._mana=this._mana + mana
@@ -106,7 +107,7 @@ private AllyAttack(enemyTeam: Character[], fight: Fight){
         }
     }
 
-    CanBeRestoreMana(): boolean{
+    public CanBeRestoreMana(): boolean{
         if(this.HP <= 0 || this._mana == 100){
             return false
         }else{
