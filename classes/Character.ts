@@ -28,10 +28,7 @@ export class Character {
 
     hit(targets: Character[]) {
         const AttackSimple = new Attack(targets, this.atkValue, "Physical");
-        const degat =AttackSimple.ApplyDmg();
-        for (const target of targets) {
-            console.log(`${this.name} did ${degat} damage on ${target.name}`);
-        }
+        AttackSimple.ApplyDmg();
     }
 
     Heal(healValue: number){

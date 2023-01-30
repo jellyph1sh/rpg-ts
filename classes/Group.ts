@@ -25,24 +25,26 @@ export class Group {
 
     UseItem(indexItem:number, target :Ally):boolean{
         let itemtoUse = false
-        if(this.inventory.items[indexItem].effect == "Revive" ){
+        switch(this.inventory.items[indexItem].effect){
+        case "Revive":
             if (target.CanBeRevive()){
                 target.Revive(this.inventory.items[indexItem].value)
                 itemtoUse = true
             }
-        }
-        if(this.inventory.items[indexItem].effect == "Heal" ){
+            break
+        case "Heal" :
             if (target.CanBeHeal()){
                 target.Heal(this.inventory.items[indexItem].value)
                 itemtoUse = true
             }
-        }
-        if (this.inventory.items[indexItem].effect == "Mana" ){
+            break
+        case "Mana":
             if (target.CanBeRestoreMana()){
                 target.restoreMana(this.inventory.items[indexItem].value)
                 itemtoUse = true
             }
-        }
+            break
+        }   
         return itemtoUse
     }
 

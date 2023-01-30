@@ -63,7 +63,7 @@ export class Fight {
                 }else{
                     console.log(`to the turn of ${character.name}`)
                     this.TurnEnemy(character)
-                    await this.delay(4)
+                    await this.delay(2)
                     console.clear();
                     console.log(this.DisplayHP())
                     this.order = this.SetFightOrder()
