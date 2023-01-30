@@ -12,7 +12,7 @@ export class Fight {
     private boss:Boss | null;
     private whoTurn = 1;
 
-    constructor(allyTeam:Group, enemyTeam:Character[],boss:Boss|null = null) {
+    constructor(allyTeam:Group, enemyTeam:Character[], boss:Boss|null = null) {
         this.allyTeam  = allyTeam;
         this.enemyTeam = enemyTeam;
         this.boss = boss
