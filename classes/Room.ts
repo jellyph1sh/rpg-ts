@@ -3,8 +3,8 @@ export class Room {
     position:number;
 
     constructor(typeZone:RoomType, position:number) {
-        this.roomType = typeZone
-        this.position = position
+        this.roomType = typeZone;
+        this.position = position;
     }
 }
 

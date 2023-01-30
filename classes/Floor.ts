@@ -2,9 +2,9 @@ import { Orientation, Room, RoomType } from "./Room.ts";
 
 
 export class Floor {
-    private ActualPostion = 12;
+    private actualPostion = 12;
     public virtualFloor:number[][] = [[0,0,0,0,0],[0,0,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]];
-    private ActualRoom:Room = new Room(this.virtualFloor[Math.floor(this.ActualPostion/5)][this.ActualPostion%5], this.ActualPostion) 
+    private actualRoom:Room = new Room(this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5], this.actualPostion);
     private _maxRooms = 0;
 
     public get maxRooms():number {
@@ -29,47 +29,42 @@ export class Floor {
             const posY = Math.floor(pos/5);
             if (this.virtualFloor[posY][posX]) {
                 if (posY-1 >= 0 && this.virtualFloor[posY-1][posX]) {
-                    roomString += hWalls.upOpenWall
+                    roomString += hWalls.upOpenWall;
                 } else {
-                    roomString += hWalls.upWall
+                    roomString += hWalls.upWall;
                 }
-
                 if (posX-1 >= 0 && this.virtualFloor[posY][posX-1]) {
-
                     if (posX+1 <= 5 && this.virtualFloor[posY][posX+1]) {
-                        roomString += vWalls.OpenBothWall
+                        roomString += vWalls.OpenBothWall;
                     } else {
-                        roomString += vWalls.OpenLeftWall
+                        roomString += vWalls.OpenLeftWall;
                     }
-
                 } else {
-
                     if (posX+1 <= 5 && this.virtualFloor[posY][posX+1]) {
-                        roomString += vWalls.OpenRightWall
+                        roomString += vWalls.OpenRightWall;
                     } else {
-                        roomString += vWalls.Wall
+                        roomString += vWalls.Wall;
                     }
                 }
-
-                if (posY+1 < 5 && this.virtualFloor[posY+1][posX]){
-                    roomString += hWalls.downOpenWall
+                if (posY+1 < 5 && this.virtualFloor[posY+1][posX]) {
+                    roomString += hWalls.downOpenWall;
                 } else {
-                    roomString += hWalls.downWall
+                    roomString += hWalls.downWall;
                 }
             } else {
-                roomString = "                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n"
+                roomString = "                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n";
             }
-            parseMap.push(roomString.split("\n"))
+            parseMap.push(roomString.split("\n"));
         }
         for (let n=0; n<5;n++) {
             for (let i=0; i<parseMap[0].length-1; i++) {
                 for (let j=0; j<5;j++) {
-                    if (j+5*n == this.ActualPostion && (i == 5 || i == 6)) {
-                        parseMap[j+5*n][i] = parseMap[j+5*n][i].substring(0,9) + "☐" + parseMap[j+5*n][i].substring(10)
+                    if (j+5*n == this.actualPostion && (i == 5 || i == 6)) {
+                        parseMap[j+5*n][i] = parseMap[j+5*n][i].substring(0,9) + "☐" + parseMap[j+5*n][i].substring(10);
                     }
-                    stringMap += parseMap[j+5*n][i]
+                    stringMap += parseMap[j+5*n][i];
                 }
-                stringMap += "\n"
+                stringMap += "\n";
             }
         }
         console.log(stringMap);
@@ -80,18 +75,18 @@ export class Floor {
     }
 
     private AddRoom(position:number, type:RoomType) {
-        this.virtualFloor[Math.floor(position/5)][position%5] = type
+        this.virtualFloor[Math.floor(position/5)][position%5] = type;
     }
 
-    ShowRoom() {
-        console.log(this.ActualRoom)
+    ShowRoom():Room {
+        return this.actualRoom;
     }
 
     Move(orientation:Orientation) {
-        if (((this.ActualPostion +orientation) > 0 && (this.ActualPostion +orientation) < 25)) {
-            if (this.virtualFloor[Math.floor((this.ActualPostion+orientation)/5)][(this.ActualPostion+orientation)%5]) {
-                this.ActualPostion += orientation
-                this.ActualRoom = new Room(this.virtualFloor[Math.floor(this.ActualPostion/5)][this.ActualPostion%5], this.ActualPostion)
+        if (((this.actualPostion + orientation) > 0 && (this.actualPostion + orientation) < 25)) {
+            if (this.virtualFloor[Math.floor((this.actualPostion+orientation)/5)][(this.actualPostion+orientation)%5]) {
+                this.actualPostion += orientation;
+                this.actualRoom = new Room(this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5], this.actualPostion);
             }
         }
     }
@@ -121,37 +116,37 @@ export class Floor {
                     }
         }
         if (MaxRooms>0 && orientations.length>0) {
-            const orientation:Orientation =  orientations[Math.floor(Math.random()*orientations.length)]
-            const newPosition = position+orientation
+            const orientation:Orientation =  orientations[Math.floor(Math.random()*orientations.length)];
+            const newPosition = position + orientation;
             if ((newPosition)>= 0 && (newPosition)< 25) {
-                const nextPosition:number = this.virtualFloor[Math.floor(newPosition/5)][newPosition%5] 
+                const nextPosition:number = this.virtualFloor[Math.floor(newPosition/5)][newPosition%5];
                 if (!nextPosition) {
                     const roomType:RoomType =  roomTypes[Math.floor(Math.random()*4)];
                     this.AddRoom(newPosition, roomType);
-                    orientations = [Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right]
+                    orientations = [Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right];
                     const index = orientations.indexOf(orientation*-1, 0);
                     if (index > -1) {
                         orientations.splice(index, 1);
                     }
-                    return this.Generation(MaxRooms-1, newPosition, orientations)
+                    return this.Generation(MaxRooms-1, newPosition, orientations);
                 } else {
                     const index = orientations.indexOf(orientation, 0);
                     if (index > -1) {
                         orientations.splice(index, 1);
                     }
-                    return this.Generation(MaxRooms, position, orientations)
+                    return this.Generation(MaxRooms, position, orientations);
                 }
             } else {
                 const index = orientations.indexOf(orientation, 0);
                     if (index > -1) {
                         orientations.splice(index, 1);
                     }
-                return this.Generation(MaxRooms, position, orientations)
+                return this.Generation(MaxRooms, position, orientations);
         
             }
         } else {
-            this.virtualFloor[Math.floor(position/5)][position%5] = 5
-            return
+            this.virtualFloor[Math.floor(position/5)][position%5] = 5;
+            return;
         }
     }
 }

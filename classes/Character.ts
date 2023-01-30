@@ -45,9 +45,9 @@ export class Character {
     } 
    
 
-    public hit(targets: Character[]) {
-        const AttackSimple = new Attack(targets, this.atkValue, "Physical");
-        AttackSimple.ApplyDmg();
+    public Hit(targets: Character[]) {
+        const simpleAttack = new Attack(targets, this.atkValue, "Physical", 0);
+        simpleAttack.ApplyDmg();
     }
 
     public Heal(healValue: number){

@@ -6,46 +6,44 @@ export class Group {
     public inventory:Inventory;
 
     public get team():Ally[] {
-        return this._team
+        return this._team;
     }
 
-    constructor(Ally1:Ally, Ally2:Ally, Ally3:Ally, inventory:Inventory){
-        this._team = [Ally1, Ally2, Ally3]
-        this.inventory = inventory
+    constructor(Ally1:Ally, Ally2:Ally, Ally3:Ally, inventory:Inventory) {
+        this._team = [Ally1, Ally2, Ally3];
+        this.inventory = inventory;
     }
 
-    public setBouttonInventory():string[]{
-        const repont :string[]=[]
-        for(let i=1; i <= this.inventory.items.length; i++){
-            repont.push(this.inventory.items[i].name)
+    public setBouttonInventory():string[] {
+        const buttons:string[] = [];
+        for(let i=1; i <= this.inventory.items.length; i++) {
+            buttons.push(this.inventory.items[i].name);
         }
-
-        return repont
+        return buttons;
     }
 
-    public UseItem(indexItem:number, target :Ally):boolean{
-        let itemtoUse = false
-        switch(this.inventory.items[indexItem].effect){
+    public UseItem(indexItem:number, target:Ally):boolean {
+        let itemToUse = false;
+        switch (this.inventory.items[indexItem].effect) {
         case "Revive":
-            if (target.CanBeRevive()){
-                target.Revive(this.inventory.items[indexItem].value)
-                itemtoUse = true
+            if (target.CanBeRevive()) {
+                target.Revive(this.inventory.items[indexItem].value);
+                itemToUse = true;
             }
             break
         case "Heal" :
-            if (target.CanBeHeal()){
-                target.Heal(this.inventory.items[indexItem].value)
-                itemtoUse = true
+            if (target.CanBeHeal()) {
+                target.Heal(this.inventory.items[indexItem].value);
+                itemToUse = true;
             }
-            break
+            break;
         case "Mana":
-            if (target.CanBeRestoreMana()){
-                target.restoreMana(this.inventory.items[indexItem].value)
-                itemtoUse = true
+            if (target.CanRestoreMana()) {
+                target.RestoreMana(this.inventory.items[indexItem].value);
+                itemToUse = true;
             }
-            break
+            break;
         }   
-        return itemtoUse
+        return itemToUse;
     }
-
 }

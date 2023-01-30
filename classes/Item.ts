@@ -1,13 +1,13 @@
 export class Item {
     private _name:string;
     private _effect:string;
-    private _value:number
+    private _value:number;
     private _amount = 1;
     
     constructor(name:string, effect:string, value:number) {
-        this._name = name
-        this._effect = effect
-        this._value=value
+        this._name = name;
+        this._effect = effect;
+        this._value = value;
     }
 
     public get name(){
@@ -25,7 +25,7 @@ export class Item {
     }
 
     public set amount(value:number){
-        this._amount =Math.max(value,0)
+        this._amount = Math.max(value, 0);
     }
 
 }
