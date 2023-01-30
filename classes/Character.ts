@@ -13,7 +13,7 @@ export class Character {
     }
 
     public set HP(value: number){
-        this._HP = Math.max(Math.min(value,100),0);
+        this._HP = Math.max(Math.min(value,this.maxHealth),0);
     } 
     
     constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number){
@@ -28,10 +28,7 @@ export class Character {
 
     hit(targets: Character[]) {
         const AttackSimple = new Attack(targets, this.atkValue, "Physical");
-        const degat =AttackSimple.ApplyDmg();
-        for (const target of targets) {
-            console.log(`${this.name} did ${degat} damage on ${target.name}`);
-        }
+        AttackSimple.ApplyDmg();
     }
 
     Heal(healValue: number){

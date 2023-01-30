@@ -12,9 +12,6 @@ export class Group {
     constructor(Ally1:Ally, Ally2:Ally, Ally3:Ally, inventory:Inventory){
         this._team = [Ally1, Ally2, Ally3]
         this.inventory = inventory
-        Ally1.group=this
-        Ally2.group=this
-        Ally3.group=this
     }
 
     setBouttonInventory():string[]{
@@ -26,15 +23,29 @@ export class Group {
         return repont
     }
 
-    useItem(indexItem:number, target :Ally):boolean{
-        if(this.inventory.items[indexItem].effect == "Revive" ){
+    UseItem(indexItem:number, target :Ally):boolean{
+        let itemtoUse = false
+        switch(this.inventory.items[indexItem].effect){
+        case "Revive":
             if (target.CanBeRevive()){
-                target.Revive(50)
-                return true
-            }else{
-                return false
+                target.Revive(this.inventory.items[indexItem].value)
+                itemtoUse = true
             }
-        }
-        return false
+            break
+        case "Heal" :
+            if (target.CanBeHeal()){
+                target.Heal(this.inventory.items[indexItem].value)
+                itemtoUse = true
+            }
+            break
+        case "Mana":
+            if (target.CanBeRestoreMana()){
+                target.restoreMana(this.inventory.items[indexItem].value)
+                itemtoUse = true
+            }
+            break
+        }   
+        return itemtoUse
     }
+
 }

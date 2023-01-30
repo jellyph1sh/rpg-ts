@@ -14,12 +14,15 @@ export class Attack {
     }
 
     public ApplyDmg():void {
+        let damageMake :number=this.damage
         for (const target of this.targets) {
             if (this.type === "Physical") {
-                target.HP -= (this.damage * (1 - (target.defValue/100)));
+                damageMake = (this.damage * (1 - (target.defValue/100)));
+                target.HP -= damageMake;
             } else {
                 target.HP -= this.damage;
             }
+            console.log(`${target.name} received ${damageMake} of the damages `);
         }
     }
 }
