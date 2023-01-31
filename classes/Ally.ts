@@ -12,14 +12,14 @@ export class Ally extends Character {
         return this._mana;
     }
 
-
     public set mana(value:number) {
         this._mana = Math.min(Math.max(value, 0), 100);
     }
 
-    constructor(skills:Attack[], name:string, atkValue:number, defValue:number, atkSpeed:number, maxHealth:number) {
+    constructor(skills:Attack[], name:string, atkValue:number, defValue:number, atkSpeed:number, maxHealth:number, mana:number) {
         super(name, atkValue, defValue, atkSpeed, maxHealth);
         this.skills = skills;
+        this.mana
     }
 
     public UseSkill(skillIndex:number, target:Character) {

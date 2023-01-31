@@ -2,6 +2,7 @@
 import { Character } from "./Character.ts";
 
 export class Attack {
+    private name:string;
     private damage:number;
     private type:string;
     private _targets:Character[];
@@ -15,7 +16,8 @@ export class Attack {
         this._targets.push(target)
     }
 
-    constructor(targets:Character[], damage:number, type:string, cost:number) {
+    constructor(name:string, targets:Character[], damage:number, type:string, cost:number) {
+        this.name = name;
         this._targets = targets;
         this.damage = damage;
         this.type = type;

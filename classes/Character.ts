@@ -46,7 +46,7 @@ export class Character {
    
 
     public Hit(targets: Character[]) {
-        const simpleAttack = new Attack(targets, this.atkValue, "Physical", 0);
+        const simpleAttack = new Attack("normal", targets, this.atkValue, "Physical", 0);
         simpleAttack.ApplyDmg();
     }
 
