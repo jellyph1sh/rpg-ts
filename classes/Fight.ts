@@ -1,4 +1,4 @@
-
+import { Boss } from "./Boss.ts";
 import { Character } from "./Character.ts"
 import { Color } from "./Color.ts";
 import { Group } from "./Group.ts";
@@ -9,11 +9,13 @@ export class Fight {
     private allyTeam:Group;
     private enemyTeam:Character[];
     private order:Character[];
+    private boss:Boss | null;
     private whoTurn = 1;
 
-    constructor(allyTeam:Group, enemyTeam:Character[]) {
+    constructor(allyTeam:Group, enemyTeam:Character[], boss:Boss|null = null) {
         this.allyTeam  = allyTeam;
         this.enemyTeam = enemyTeam;
+        this.boss = boss
         this.order = this.SetFightOrder();
         this.EnemyAnnouncement();
     }
@@ -63,6 +65,11 @@ export class Fight {
                 } else {
                     console.log(`to the turn of ${character.name}`);
                     this.TurnEnemy(character);
+                    if (this.boss != null) {
+                        this.turnBoss(this.boss);
+                    } else {
+                        this.TurnEnemy(character);
+                    }
                     await this.delay(2);
                     console.clear();
                     console.log(this.DisplayHP());
@@ -89,7 +96,15 @@ export class Fight {
         }
     }
 
-    
+    private turnBoss(boss:Boss){
+        const zoneAttack = Math.floor(Math.random() * 100);
+        if (zoneAttack < 30) {
+            boss.UseSkill();
+        } else {
+            this.TurnEnemy(boss);
+        }
+    }
+
     private TurnEnemy(enemy:Character) {
         const proba = Math.floor(Math.random() * 100);
         if (proba < 80) {
