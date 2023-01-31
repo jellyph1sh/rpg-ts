@@ -7,6 +7,8 @@ export class Menu {
     private input = 0;
 
     constructor(title:string, description:string, buttons:string[]) {
+
+        console.clear()
         this.title = title;
         this.description = description;
         this.buttons = buttons;
@@ -49,7 +51,6 @@ export class Menu {
     }
 
     private Display():void {
-        console.clear();
         console.log(this.title);
         console.log(this.description);
         for(let i=0; i < this.buttons.length; i++) {

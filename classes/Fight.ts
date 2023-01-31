@@ -1,4 +1,4 @@
-import { Boss } from "./Boss.ts";
+import { Cyclops } from "./Boss/Cyclops.ts";
 import { Character } from "./Character.ts"
 import { Color } from "./Color.ts";
 import { Group } from "./Group.ts";
@@ -9,13 +9,14 @@ export class Fight {
     private allyTeam:Group;
     private enemyTeam:Character[];
     private order:Character[];
-    private boss:Boss | null;
     private whoTurn = 1;
 
-    constructor(allyTeam:Group, enemyTeam:Character[], boss:Boss|null = null) {
+    constructor(allyTeam:Group, enemyTeam:Character[], boss:Cyclops|null = null) {
         this.allyTeam  = allyTeam;
         this.enemyTeam = enemyTeam;
-        this.boss = boss
+        if (boss) {
+            this.enemyTeam.push(boss)
+        }
         this.order = this.SetFightOrder();
         this.EnemyAnnouncement();
     }
@@ -48,29 +49,30 @@ export class Fight {
     }   
 
     // retourne vrais si c'est le joueur qui gagnier le fight sinon retour faux
-    public async TurnFigth():Promise<boolean> {
+    public TurnFigth():boolean{
         console.clear();
         console.log(this.DisplayHP());
         console.log(`Turn ${this.whoTurn} \n`);
-        await this.delay(2);
+        // await this.delay(2);
+        prompt("")
         for (const character of this.order) {
             if (!character.CanBeRevive() && !this.IsTeamDead(this.allyTeam.team) && !this.IsTeamDead(this.enemyTeam)) {
                 if (this.enemyTeam.indexOf(character) == -1) {
                     console.log(`to the turn of ${character.name}` );
                     prompt("");
                     this.TurnAlly(character);
-                    await this.delay(2);
+                    // await this.delay(2);
                     console.clear();
                     console.log(this.DisplayHP());
                 } else {
                     console.log(`to the turn of ${character.name}`);
-                    this.TurnEnemy(character);
-                    if (this.boss != null) {
-                        this.turnBoss(this.boss);
+                    if (character.name == "Cyclops") {
+                        this.turnBoss(character as Cyclops);
                     } else {
                         this.TurnEnemy(character);
                     }
-                    await this.delay(2);
+                    // await this.delay(2);
+                    prompt("")
                     console.clear();
                     console.log(this.DisplayHP());
                     this.order = this.SetFightOrder();
@@ -84,22 +86,22 @@ export class Fight {
         return this.NextTurn();
     }
 
-    private NextTurn():Promise<boolean> {
+    private NextTurn():boolean {
         if (this.IsTeamDead(this.enemyTeam)) {
             console.log("win");
-            return Promise.resolve(true);
+            return true;
         } else if (this.IsTeamDead(this.allyTeam.team)) {
             console.log("loose");
-            return Promise.resolve(false);
+            return false;
         } else {
             return this.TurnFigth();
         }
     }
 
-    private turnBoss(boss:Boss){
+    private turnBoss(boss:Cyclops){
         const zoneAttack = Math.floor(Math.random() * 100);
         if (zoneAttack < 30) {
-            boss.UseSkill();
+            boss.UseSkill(this.allyTeam.team);
         } else {
             this.TurnEnemy(boss);
         }
@@ -173,7 +175,7 @@ export class Fight {
                 answer = false; 
             }
         }
-        return answer;
+        return answer
     }
 
     private delay(n:number) {

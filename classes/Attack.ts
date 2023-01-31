@@ -5,21 +5,15 @@ export class Attack {
     private damage:number;
     private type:string;
     private _targets:Character[];
-    private _cost:number;
-
-    public get cost():number {
-        return this._cost
-    }
 
     public set targets(target:Character){
         this._targets.push(target)
     }
 
-    constructor(targets:Character[], damage:number, type:string, cost:number) {
+    constructor(targets:Character[], damage:number, type:string) {
         this._targets = targets;
         this.damage = damage;
         this.type = type;
-        this._cost = cost;
     }
 
     public ApplyDmg():void {
@@ -29,6 +23,8 @@ export class Attack {
                 damageMake = (this.damage * (1 - (target.defValue/100)));
                 target.HP -= damageMake;
             } else {
+                console.log("Magicccc");
+                prompt("")
                 target.HP -= this.damage;
             }
         }

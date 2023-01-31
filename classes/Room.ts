@@ -1,10 +1,12 @@
 export class Room {
     roomType:RoomType;
     position:number;
+    possibleMovements:string[];
 
-    constructor(typeZone:RoomType, position:number) {
+    constructor(typeZone:RoomType, position:number, possibleMovements:string[]) {
         this.roomType = typeZone;
         this.position = position;
+        this.possibleMovements = possibleMovements;
     }
 }
 

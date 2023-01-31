@@ -2,9 +2,9 @@ import { Orientation, Room, RoomType } from "./Room.ts";
 
 
 export class Floor {
-    private actualPostion = 12;
+    public actualPostion = 12;
     public virtualFloor:number[][] = [[0,0,0,0,0],[0,0,0,0,0],[0,0,1,0,0],[0,0,0,0,0],[0,0,0,0,0]];
-    private actualRoom:Room = new Room(this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5], this.actualPostion);
+    private _actualRoom:Room;
     private _maxRooms = 0;
 
     public get maxRooms():number {
@@ -15,9 +15,14 @@ export class Floor {
         this._maxRooms = Math.max(Math.min(value, 25), 5)
     }
 
+    public get actualRoom():Room {
+        return this._actualRoom
+    }
+ 
     constructor(maxRooms:number){
         this.maxRooms = maxRooms;
         this.Generation(this._maxRooms);
+        this._actualRoom = new Room(this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5], this.actualPostion, this.PossibleMoves());
     }
 
     ShowFloor() {
@@ -68,10 +73,6 @@ export class Floor {
             }
         }
         console.log(stringMap);
-        console.log(this.virtualFloor);
-        
-        
-        
     }
 
     private AddRoom(position:number, type:RoomType) {
@@ -83,12 +84,48 @@ export class Floor {
     }
 
     Move(orientation:Orientation) {
-        if (((this.actualPostion + orientation) > 0 && (this.actualPostion + orientation) < 25)) {
+        this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5] = 1
+        if (((this.actualPostion + orientation) >= 0 && (this.actualPostion + orientation) < 25)) {
             if (this.virtualFloor[Math.floor((this.actualPostion+orientation)/5)][(this.actualPostion+orientation)%5]) {
                 this.actualPostion += orientation;
-                this.actualRoom = new Room(this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5], this.actualPostion);
+                this._actualRoom = new Room(this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5], this.actualPostion, this.PossibleMoves());
             }
         }
+    }
+
+    public PossibleMoves():string[] {
+        const nextOrientations:string[] = [];
+        const orientations = [Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right]
+        for (const nextOrientation of orientations) {
+            if (!(this.actualPostion+nextOrientation>24 || this.actualPostion+nextOrientation<0)) {
+                if (nextOrientation == Orientation.Left) {
+                    if ((this.actualPostion)%5!=0) {
+                        if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
+                            nextOrientations.push("Left")
+                        }
+                    }
+                } else if (nextOrientation == Orientation.Right) {
+                    if ((this.actualPostion)%5!=4) {
+                        if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
+                            nextOrientations.push("Right")
+                        }
+                    }
+                } else if (nextOrientation == Orientation.Up) {
+                    if (this.actualPostion >= 5) {
+                        if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
+                            nextOrientations.push("Up")
+                        }
+                    }
+                } else if (nextOrientation == Orientation.Down) {
+                    if (this.actualPostion < 20) {
+                        if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
+                            nextOrientations.push("Down")
+                        }
+                    }
+                }
+            }
+        }
+        return nextOrientations
     }
 
     private Generation(MaxRooms:number, position=12, orientations:Orientation[]=[Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right]):void{
@@ -164,3 +201,8 @@ enum hWalls {
     downWall =      "└─────────────────┘\n",
     downOpenWall =  "└──────┐   ┌──────┘\n"
 }
+
+type movement = {
+    orientation:Orientation;
+    description:string;
+} 

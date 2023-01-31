@@ -3,7 +3,7 @@ import { Item } from "../Item.ts";
 
 export class SemiStar extends Item {
     constructor() {
-        super("Ether")
+        super("SemiStar")
     }
 
     public UseItem(target:Ally) {

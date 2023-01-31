@@ -7,6 +7,11 @@ import { StarFragment } from "../Items/StarFragment.ts";
 
 
 export class Thief extends Ally {
+    protected _skillsName = ["stealing"];
+
+    public get skillsName():string[] {
+        return this._skillsName;
+    }
     private team:Group;
 
     constructor(group:Group) {
@@ -16,7 +21,7 @@ export class Thief extends Ally {
 
     public UseSkill(skillIndex:number) {
         switch (skillIndex) {
-            case (1): {
+            case (0): {
                 this.Skill1();
                 break;
             }

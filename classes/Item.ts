@@ -1,4 +1,6 @@
-export class Item {
+import { Character } from "./Character.ts";
+
+export abstract class Item {
     private _name:string;
     private _amount = 1;
     
@@ -18,4 +20,5 @@ export class Item {
         this._amount = Math.max(value, 0);
     }
 
+    abstract UseItem(target:Character):void;
 }

@@ -22,28 +22,7 @@ export class Group {
         return buttons;
     }
 
-    public UseItem(indexItem:number, target:Ally):boolean {
-        let itemToUse = false;
-        switch (this.inventory.items[indexItem].effect) {
-        case "Revive":
-            if (target.CanBeRevive()) {
-                target.Revive(this.inventory.items[indexItem].value);
-                itemToUse = true;
-            }
-            break
-        case "Heal" :
-            if (target.CanBeHeal()) {
-                target.Heal(this.inventory.items[indexItem].value);
-                itemToUse = true;
-            }
-            break;
-        case "Mana":
-            if (target.CanRestoreMana()) {
-                target.RestoreMana(this.inventory.items[indexItem].value);
-                itemToUse = true;
-            }
-            break;
-        }   
-        return itemToUse;
+    public UseItem(indexItem:number, target:Ally) {
+        this.inventory.items[indexItem].UseItem(target)
     }
 }

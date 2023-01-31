@@ -3,7 +3,7 @@ import { Item } from "../Item.ts";
 
 export class StarFragment extends Item {
     constructor() {
-        super("Ether")
+        super("StarFragment")
     }
 
     public UseItem(target:Ally) {
