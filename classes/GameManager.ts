@@ -8,7 +8,7 @@ export class GameManager {
     public allies:Ally[] = [];
 
     public deployAllAlliesCharacters():void {
-        this.allies = [new Ally([], "Warrior", 50, 50, 0.6, 100), new Ally([], "Magician", 75, 25, 0.25, 100), new Ally([], "Paladin", 65, 20, 0.25, 100), new Ally([], "Barbaric", 55, 45, 0.5, 100), new Ally([], "Presbyter", 75, 25, 0.2, 100), new Ally([], "Thief", 45, 10, 0.8, 100)];
+        this.allies = []
     }
 
     public selectAlliesCharacters():void {
@@ -25,5 +25,13 @@ export class GameManager {
             alliesName.splice(index, 1);
         }
         this.team = new Group(localTeam[0], localTeam[1], localTeam[2], new Inventory());
+    }
+
+    public Game() {
+
+    }
+
+    public DisplayGame() {
+
     }
 }

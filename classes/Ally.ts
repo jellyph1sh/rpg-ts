@@ -5,29 +5,25 @@ import { Group } from "./Group.ts";
 import { Attack } from "./Attack.ts";
 
 export class Ally extends Character {
-    private _mana = 100;
-    private skills:Attack[];
+    private _mana:number;
+    private _manaMax:number;
     
     public get mana() {
         return this._mana;
     }
 
-
     public set mana(value:number) {
         this._mana = Math.min(Math.max(value, 0), 100);
     }
 
-    constructor(skills:Attack[], name:string, atkValue:number, defValue:number, atkSpeed:number, maxHealth:number) {
-        super(name, atkValue, defValue, atkSpeed, maxHealth);
-        this.skills = skills;
+    public get manaMax():number {
+        return this._manaMax
     }
 
-    public UseSkill(skillIndex:number, target:Character) {
-        const usedSkill = this.skills[skillIndex];
-        this.mana -= usedSkill.cost;
-        usedSkill.targets = target
-        usedSkill.ApplyDmg()
-        console.log(usedSkill, target, this.mana);
+    constructor(name:string, atkValue:number, defValue:number, atkSpeed:number, maxHealth:number, manaMax:number) {
+        super(name, atkValue, defValue, atkSpeed, maxHealth);
+        this._mana = manaMax
+        this._manaMax = manaMax
     }
 
     public Turn(enemyTeam: Character[], fight: Fight, group:Group) {
@@ -94,7 +90,7 @@ export class Ally extends Character {
     }
 
     public RestoreMana(regenValue:number) {
-        if (regenValue + this._mana >= 100) {
+        if (regenValue + this._mana >= this._manaMax) {
             this.mana = 100;
             console.log(`${this.name}has found all his mana, it has ${this._mana} mana.`);
         } else {
@@ -104,7 +100,7 @@ export class Ally extends Character {
     }
 
     public CanRestoreMana():boolean {
-        if (this.HP <= 0 || this._mana == 100) {
+        if (this.HP <= 0 || this._mana == this._manaMax) {
             return false;
         } else {
             return true;
