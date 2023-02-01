@@ -4,7 +4,7 @@ import { Group } from "../Group.ts";
 import { Menu } from "../Menu.ts";
 
 export class Presbyter extends Ally {
-    protected _skillsName = ["Heal"];
+    protected _skillsName = ["Heal (20 mana)"];
     protected _team!: Group;
 
     public get skillsName():string[] {
@@ -20,7 +20,7 @@ export class Presbyter extends Ally {
         for (const ally of targetAlly.team) {
             enemiesNames.push(ally.name);
         }
-        const selectTarget = new Menu("Launch a skill", "Choose an enemy", enemiesNames);
+        const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", enemiesNames);
         const selectedTarget = selectTarget.Naviguate();
         switch (skillIndex) {
             case (0): {
@@ -33,6 +33,7 @@ export class Presbyter extends Ally {
     private Skill1(target:Character) {
         if (target.CanBeHeal()) {
             target.HP = target.HP*1.25;
+            this.mana -= 20;
         }
     }
 }

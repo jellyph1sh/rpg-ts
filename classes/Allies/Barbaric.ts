@@ -22,7 +22,7 @@ export class Barbaric extends Ally{
         for (const enemy of targetsEnemy) {
             enemiesNames.push(enemy.name);
         }
-        const selectTarget = new Menu("Launch a skill", "Choose an enemy", enemiesNames);
+        const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", enemiesNames);
         const selectedTarget = selectTarget.Naviguate();
         switch (skillIndex) {
             case (0): this.Skill1(targetsEnemy[selectedTarget]);

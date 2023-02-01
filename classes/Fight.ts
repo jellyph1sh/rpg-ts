@@ -1,3 +1,4 @@
+import { Ally } from "./Ally.ts";
 import { Cyclops } from "./Boss/Cyclops.ts";
 import { Character } from "./Character.ts"
 import { Color } from "./Color.ts";
@@ -23,7 +24,7 @@ export class Fight {
    
     private EnemyAnnouncement() {
         console.clear();
-        console.log(`the enemies appear are :`);
+        console.log(`The enemies appear are:`);
         for(const enemy of this.enemyTeam) {
             console.log(`- ${enemy.name}`);
         }
@@ -56,13 +57,13 @@ export class Fight {
         for (const character of this.order) {
             if (!character.CanBeRevive() && !this.IsTeamDead(this.allyTeam.team) && !this.IsTeamDead(this.enemyTeam)) {
                 if (this.enemyTeam.indexOf(character) == -1) {
-                    console.log(`to the turn of ${character.name}`);
+                    console.log(`Turn of ${character.name}!`);
                     prompt("");
                     this.TurnAlly(character);
                     console.clear();
                     console.log(this.DisplayHP());
                 } else {
-                    console.log(`to the turn of ${character.name}`);
+                    console.log(`Turn of ${character.name}!`);
                     if (character.name == "Cyclops") {
                         this.turnBoss(character as Cyclops);
                     } else {
@@ -140,11 +141,14 @@ export class Fight {
 
     public DisplayHP():string {
         let display = "";
-        display += ("here are the HP of your team: \n");
+        display += ("Team HP: \n");
         for (const ally of this.allyTeam.team) {
             display += this.DisplayHPBar(ally);
+            if (ally.manaMax !== 0) {
+                display += this.DisplayManaBar(ally);
+            }
         }
-        display += ("\nhere are the HP of the enemies:\n ");
+        display += ("\nEnemies HP:\n ");
         for (const enemy of this.enemyTeam) {
             display += this.DisplayHPBar(enemy);
         }
@@ -162,6 +166,19 @@ export class Fight {
             HPred += "■";
         }
         return(`- ${character.name} as ${character.HP} HP \n`+Color.green +HPgreen+Color.red+HPred+Color.white +"\n");
+    }
+
+    private DisplayManaBar(ally:Ally):string {
+        const percentageMana = Math.floor(ally.mana*100/ally.manaMax);
+        let ManaBlue = "";
+        let ManaRed = "";
+        for(let i = 1; i <= percentageMana; i++) {
+            ManaBlue += "■";
+        }
+        for(let i = percentageMana; i<100; i++) {
+            ManaRed += "■";
+        }
+        return(Color.blue+ManaBlue+Color.red+ManaRed+Color.white+"\n");
     }
 
     private IsTeamDead(team:Character[]):boolean{

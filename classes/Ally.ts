@@ -37,7 +37,7 @@ export abstract class Ally extends Character {
         let restart = true;
         while (restart) {
             restart = false;
-            const displayActions = new Menu(fight.DisplayHP(), `to the turn of ${this.name} `, ["single attack","skill","inventory"]);
+            const displayActions = new Menu(fight.DisplayHP(), `Turn of ${this.name} `, ["Single attack","Skill","Inventory"]);
             const choosedAction = displayActions.Naviguate();
             switch (choosedAction) {
                 case 0: {
@@ -45,7 +45,7 @@ export abstract class Ally extends Character {
                     break;
                 }
                 case 1: {
-                    const selectSkill = new Menu(fight.DisplayHP(), "Choose a skill", this._skillsName);
+                    const selectSkill = new Menu(fight.DisplayHP(), "Choose a skill:", this._skillsName);
                     const selectedSkill = selectSkill.Naviguate();
                     this.UseSkill(selectedSkill, enemyTeam, group);
                     break;
@@ -54,7 +54,7 @@ export abstract class Ally extends Character {
                     if (group.inventory.items.length != 0) {
                         restart = !this.AllyInventory(group,fight);
                     } else {
-                        console.log("you no longer have an object");
+                        console.log("You no longer have any object!");
                         restart = true;
                         prompt("");
                     }
@@ -74,7 +74,7 @@ export abstract class Ally extends Character {
                     targetList.push(enemy);
                 }
             }
-            const menu = new Menu(fight.DisplayHP(), "Choose a target", enemyNames);
+            const menu = new Menu(fight.DisplayHP(), "Choose a target:", enemyNames);
             const target = menu.Naviguate();
             this.Hit([targetList[target]]);
     }
@@ -88,9 +88,9 @@ export abstract class Ally extends Character {
         for (const ally of group.team) {
             allyNames.push(ally.name);
         }
-        const inventoryMenu = new Menu(fight.DisplayHP(), "what item do you want to usewho to item ?", itemNames);
+        const inventoryMenu = new Menu(fight.DisplayHP(), "What item do you want to use?", itemNames);
         const choosedItem = inventoryMenu.Naviguate();
-        const selectAllyMenu = new Menu(fight.DisplayHP(),"on which ?",allyNames);
+        const selectAllyMenu = new Menu(fight.DisplayHP(),"On which?",allyNames);
         const indexAlly = selectAllyMenu.Naviguate();
         group.UseItem(choosedItem, group.team[indexAlly]);
         group.inventory.RemoveItem(choosedItem);
@@ -100,10 +100,10 @@ export abstract class Ally extends Character {
     public RestoreMana(regenValue:number) {
         if (regenValue + this._mana >= this._manaMax) {
             this.mana = 100;
-            console.log(`${this.name}has found all his mana, it has ${this._mana} mana.`);
+            console.log(`${this.name} got back all his mana, he has ${this._mana} mana.`);
         } else {
             this._mana = this._mana + regenValue;
-            console.log(`you have restore ${regenValue} from mana. ${this.name}it to ${this._mana} mana.`);
+            console.log(`You have restore ${regenValue} from mana. ${this.name} it to ${this._mana} mana.`);
         }
     }
 

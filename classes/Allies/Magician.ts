@@ -5,7 +5,7 @@ import { Group } from "../Group.ts";
 import { Menu } from "../Menu.ts";
 
 export class Magician extends Ally{
-    protected _skillsName = ["FireBall", "Avada Kedavra"];
+    protected _skillsName = ["FireBall (30 mana)", "Avada Kedavra (100 mana)"];
     protected _team!: Group;
 
     public get skillsName():string[] {
@@ -21,7 +21,7 @@ export class Magician extends Ally{
                 for (const enemy of targetsEnemy) {
                     enemiesNames.push(enemy.name);
                 }
-                const selectTarget = new Menu("Launch a skill", "Choose an enemy", enemiesNames);
+                const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", enemiesNames);
                 const selectedTarget = selectTarget.Naviguate();
         switch (skillIndex) {
             case (0): {

@@ -14,6 +14,8 @@ import { Fight } from "./Fight.ts";
 import { Zombie } from "./Enemies/Zombie.ts";
 import { Skeleton } from "./Enemies/Skeleton.ts";
 import { Slime } from "./Enemies/Slime.ts";
+import { Goblin } from "./Enemies/Goblin.ts";
+import { Orc } from "./Enemies/Orc.ts";
 import { Character } from "./Character.ts";
 import { Ether } from "./Items/Ether.ts";
 import { Potion } from "./Items/Potion.ts";
@@ -49,7 +51,7 @@ export class GameManager {
         }
         const localTeam:Ally[] = [];
         while (localTeam.length !== 3) {
-            const selectAllyMenu = new Menu("Select your ally!", "Select your three allies.", alliesName);
+            const selectAllyMenu = new Menu("Select your ally:", "Select your three allies.", alliesName);
             const index = selectAllyMenu.Naviguate();
             localTeam.push(this.allies[index]);
             this.allies.splice(index, 1);
@@ -71,7 +73,7 @@ export class GameManager {
         this.selectAlliesCharacters();
         if (this.team) {
             while (!this.isBossDefeated && this.isAlive) {
-                const mouvementChoice = new Menu(this.floor.ShowFloor(), "Select a direction", this.floor.actualRoom.possibleMovements);
+                const mouvementChoice = new Menu(this.floor.ShowFloor(), "Select your direction:", this.floor.actualRoom.possibleMovements);
                 const mouvement = mouvementChoice.Naviguate();
                 console.clear();
                 console.log(this.floor.actualRoom.possibleMovements);
@@ -91,7 +93,7 @@ export class GameManager {
                         const hasWin = fight.TurnFigth();
                         if (!hasWin) {
                             console.clear();
-                            console.log("You lose");
+                            console.log("You lose!");
                             this.isAlive = false;
                         }
                         break;
@@ -99,7 +101,7 @@ export class GameManager {
                     case (3) : {
                         const possibleItems = [new Ether(), new Potion(), new StarFragment(), new SemiStar()];
                         const randomValue = Math.floor(Math.random()*4);
-                        const hadItem = new Menu("You find a chest", `there is ${possibleItems[randomValue].name} in`, ["Use it !", "Just take it"]);
+                        const hadItem = new Menu("You find a chest!", `There is ${possibleItems[randomValue].name} in`, ["Use it!", "Just take it"]);
                         const choice = hadItem.Naviguate();
                         switch (choice) {
                             case (0) : {
@@ -107,7 +109,7 @@ export class GameManager {
                                 for (const ally of this.allies) {
                                     names.push(ally.name);
                                 }
-                                const chooseTarget = new Menu("You want to use the item", "Who's the target", names);
+                                const chooseTarget = new Menu("You want to use the item!", "On which?", names);
                                 const targetChoice = chooseTarget.Naviguate();
                                 possibleItems[randomValue].UseItem(this.allies[targetChoice]);
                                 break;
@@ -123,20 +125,19 @@ export class GameManager {
                         const HPLoose = Math.floor(Math.random()*20);
                         this.team.team[characterHit].HP -= (HPLoose+10);
                         console.clear();
-                        console.log(`You open a chest and got traped, someone in your team was hurt and loose ${(HPLoose+10)} HP`);
+                        console.log(`You open a chest and got traped, someone in your team was hurt and loose ${(HPLoose+10)} HP!`);
                         prompt("")
                         break;
                     }
                     case (5) :{
-                        // const enemies = [this.SelectRandomEnemy(), this.SelectRandomEnemy()]
                         const fight = new Fight(this.team, [], new Cyclops());
                         const hasSlayTheBoss = fight.TurnFigth();
                         console.clear();
                         if (!hasSlayTheBoss) {
-                            console.log("You lose");
+                            console.log("You lose!");
                             this.isAlive = false;
                         } else {
-                            console.log("You have Win !!!");
+                            console.log("You have win!!!");
                             this.isBossDefeated = true;
                         }
                     }
@@ -146,7 +147,7 @@ export class GameManager {
     }
 
     private SelectRandomEnemy():Character {
-        const enemies = [new Zombie(), new Skeleton(), new Slime()];
+        const enemies = [new Zombie(), new Skeleton(), new Slime(), new Goblin(), new Orc()];
         const randomValue = Math.floor(Math.random()*3);
         return enemies[randomValue];
     }
