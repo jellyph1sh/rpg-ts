@@ -42,7 +42,7 @@ export abstract class Character {
 
     public set HP(value:number){
         this._HP = Math.max(Math.min(value,this.maxHealth),0);
-        Math.floor(this._HP);
+        this._HP = Math.floor(this._HP);
     } 
    
 
