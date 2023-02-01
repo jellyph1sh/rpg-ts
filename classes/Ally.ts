@@ -17,13 +17,13 @@ export abstract class Ally extends Character {
     }
 
     public get manaMax():number {
-        return this._manaMax
+        return this._manaMax;
     }
 
     constructor(name:string, atkValue:number, defValue:number, atkSpeed:number, maxHealth:number, manaMax:number) {
         super(name, atkValue, defValue, atkSpeed, maxHealth);
-        this._mana = manaMax
-        this._manaMax = manaMax
+        this._mana = manaMax;
+        this._manaMax = manaMax;
     }
 
     public abstract UseSkill(skillIndex:number, targetEnemy:Character[], targetAlly:Group):void;
@@ -40,11 +40,9 @@ export abstract class Ally extends Character {
                     break;
                 }
                 case 1: {
-                    const selectSkill = new Menu(fight.DisplayHP(), "Choose a skill", this._skillsName)
-                    const selectedSkill = selectSkill.Naviguate()
-                    console.log(selectedSkill)
-                    prompt("")
-                    this.UseSkill(selectedSkill, enemyTeam, group)
+                    const selectSkill = new Menu(fight.DisplayHP(), "Choose a skill", this._skillsName);
+                    const selectedSkill = selectSkill.Naviguate();
+                    this.UseSkill(selectedSkill, enemyTeam, group);
                     break;
                 }
                 case 2: {
@@ -53,7 +51,7 @@ export abstract class Ally extends Character {
                     } else {
                         console.log("you no longer have an object");
                         restart = true;
-                        // prompt("");
+                        prompt("");
                     }
                     break;
                 }
@@ -71,8 +69,7 @@ export abstract class Ally extends Character {
                     targetList.push(enemy);
                 }
             }
-            console.log("test");
-            const menu = new Menu(fight.DisplayHP(), "who to attack", enemyNames);
+            const menu = new Menu(fight.DisplayHP(), "Choose a target", enemyNames);
             const target = menu.Naviguate();
             this.Hit([targetList[target]]);
     }

@@ -2,6 +2,6 @@ import { Character } from "../Character.ts";
 
 export class Slime extends Character {
     constructor() {
-        super("Slime", 10, 0, 60, 300)
+        super("Slime", 20, 0, 60, 170);
     }
 }

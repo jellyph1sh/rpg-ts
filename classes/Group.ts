@@ -23,6 +23,6 @@ export class Group {
     }
 
     public UseItem(indexItem:number, target:Ally) {
-        this.inventory.items[indexItem].UseItem(target)
+        this.inventory.items[indexItem].UseItem(target);
     }
 }

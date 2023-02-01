@@ -7,7 +7,7 @@ export class Attack {
     private _targets:Character[];
 
     public set targets(target:Character){
-        this._targets.push(target)
+        this._targets.push(target);
     }
 
     constructor(targets:Character[], damage:number, type:string) {
@@ -23,8 +23,6 @@ export class Attack {
                 damageMake = (this.damage * (1 - (target.defValue/100)));
                 target.HP -= damageMake;
             } else {
-                console.log("Magicccc");
-                prompt("")
                 target.HP -= this.damage;
             }
         }

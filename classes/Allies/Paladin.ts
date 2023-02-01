@@ -11,7 +11,7 @@ export class Paladin extends Ally {
     }
 
     constructor() {
-        super("Paladin", 40, 70, 45, 150, 0)
+        super("Paladin", 40, 70, 45, 150, 0);
     }
 
     public UseSkill(skillIndex:number, targetEnemy:Character[], _targetAlly:Group) {
@@ -24,7 +24,7 @@ export class Paladin extends Ally {
     }
 
     private Skill1(targets:Character[]) {
-        const attack = new Attack(targets, this.atkValue*0.4, "Physical")
-        attack.ApplyDmg()
+        const attack = new Attack(targets, this.atkValue*0.4, "Physical");
+        attack.ApplyDmg();
     }
 }
