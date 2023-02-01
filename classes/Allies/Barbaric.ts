@@ -19,13 +19,17 @@ export class Barbaric extends Ally{
 
     public UseSkill(skillIndex:number, targetsEnemy:Character[], _targetAlly:Group) {
         const enemiesNames:string[] = [];
+        const targetList: Character[] = [];
         for (const enemy of targetsEnemy) {
-            enemiesNames.push(enemy.name);
+            if (!enemy.CanBeRevive()) {
+                enemiesNames.push(enemy.name);
+                targetList.push(enemy);
+            }
         }
         const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", enemiesNames);
         const selectedTarget = selectTarget.Naviguate();
         switch (skillIndex) {
-            case (0): this.Skill1(targetsEnemy[selectedTarget]);
+            case (0): this.Skill1(targetList[selectedTarget]);
         }
     }
 

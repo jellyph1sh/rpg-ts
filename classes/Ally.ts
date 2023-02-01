@@ -67,16 +67,16 @@ export abstract class Ally extends Character {
 
     private AllyAttack(enemyTeam:Character[], fight:Fight) {
         const enemyNames: string[] = [];
-            const targetList: Character[] = [];
-            for (const enemy of enemyTeam) {
-                if (!enemy.CanBeRevive()) {
-                    enemyNames.push(enemy.name);
-                    targetList.push(enemy);
-                }
+        const targetList: Character[] = [];
+        for (const enemy of enemyTeam) {
+            if (!enemy.CanBeRevive()) {
+                enemyNames.push(enemy.name);
+                targetList.push(enemy);
             }
-            const menu = new Menu(fight.DisplayHP(), "Choose a target:", enemyNames);
-            const target = menu.Naviguate();
-            this.Hit([targetList[target]]);
+        }
+        const menu = new Menu(fight.DisplayHP(), "Choose a target:", enemyNames);
+        const target = menu.Naviguate();
+        this.Hit([targetList[target]]);
     }
 
     private AllyInventory(group:Group, fight:Fight):boolean {

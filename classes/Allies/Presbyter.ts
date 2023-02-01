@@ -16,15 +16,19 @@ export class Presbyter extends Ally {
     }
 
     public UseSkill(skillIndex:number, _targetEnemy:Character[], targetAlly:Group) {
-        const enemiesNames:string[] = [];
+        const alliesNames:string[] = [];
+        const targetList: Character[] = [];
         for (const ally of targetAlly.team) {
-            enemiesNames.push(ally.name);
+            if (!ally.CanBeRevive()) {
+                alliesNames.push(ally.name);
+                targetList.push(ally);
+            }
         }
-        const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", enemiesNames);
+        const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", alliesNames);
         const selectedTarget = selectTarget.Naviguate();
         switch (skillIndex) {
             case (0): {
-                this.Skill1(targetAlly.team[selectedTarget]);
+                this.Skill1(targetList[selectedTarget]);
                 break;
             }
         }

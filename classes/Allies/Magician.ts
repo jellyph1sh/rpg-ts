@@ -18,17 +18,21 @@ export class Magician extends Ally{
 
     public UseSkill(skillIndex:number, targetsEnemy:Character[], _targetAlly:Group) {
         const enemiesNames:string[] = [];
-                for (const enemy of targetsEnemy) {
-                    enemiesNames.push(enemy.name);
-                }
-                const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", enemiesNames);
-                const selectedTarget = selectTarget.Naviguate();
+        const targetList: Character[] = [];
+        for (const enemy of targetsEnemy) {
+            if (!enemy.CanBeRevive()) {
+                enemiesNames.push(enemy.name);
+                targetList.push(enemy);
+            }
+        }
+        const selectTarget = new Menu("Launch a skill!", "Choose an enemy:", enemiesNames);
+        const selectedTarget = selectTarget.Naviguate();
         switch (skillIndex) {
             case (0): {
-                this.Skill1(targetsEnemy[selectedTarget]);
+                this.Skill1(targetList[selectedTarget]);
                 break;
             }
-            case (1): if (this.mana >= 100) this.Skill2(targetsEnemy[selectedTarget]);
+            case (1): if (this.mana >= 100) this.Skill2(targetList[selectedTarget]);
         }
     }
 
