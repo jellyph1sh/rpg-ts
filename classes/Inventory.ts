@@ -32,8 +32,4 @@ export class Inventory {
             this._items[itemIndex].amount--;
         }
     }
-
-    public ShowInventory() {
-        console.log(this.items);
-    }
 }
