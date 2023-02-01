@@ -11,7 +11,7 @@ import { Thief } from "./Allies/Thief.ts";
 import { Floor } from "./Floor.ts";
 import { Orientation } from "./Room.ts";
 import { Fight } from "./Fight.ts";
-import { Zombie } from "./Enemies/zombie.ts";
+import { Zombie } from "./Enemies/Zombie.ts";
 import { Skeleton } from "./Enemies/Skeleton.ts";
 import { Slime } from "./Enemies/Slime.ts";
 import { Character } from "./Character.ts";
@@ -26,7 +26,7 @@ export class GameManager {
     public allies:Ally[] = [];
     private floor:Floor = new Floor(7);
     private isBossDefeated = false;
-    private isAlive = true
+    private isAlive = true;
     private static _instance:GameManager;
 
     public static get instance():GameManager {
@@ -39,7 +39,7 @@ export class GameManager {
     private constructor(){}
 
     public deployAllAlliesCharacters():void {
-        this.allies = [new Barbaric(), new Magician(), new Paladin(), new Presbyter(), new Thief(this.team as Group), new Warrior()]
+        this.allies = [new Barbaric(), new Magician(), new Paladin(), new Presbyter(), new Thief(), new Warrior()]
     }
 
     public selectAlliesCharacters():void {
@@ -56,25 +56,25 @@ export class GameManager {
             alliesName.splice(index, 1);
         }
         this.team = new Group(localTeam[0], localTeam[1], localTeam[2], new Inventory());
-        this.team.inventory.AddItem(new Potion())
-        this.team.inventory.AddItem(new Potion())
-        this.team.inventory.AddItem(new Ether())
-        this.team.inventory.AddItem(new StarFragment())
+        for (const ally of localTeam) {
+            ally.team = this.team
+        }
+        this.team.inventory.AddItem(new Potion());
+        this.team.inventory.AddItem(new Potion());
+        this.team.inventory.AddItem(new Ether());
+        this.team.inventory.AddItem(new StarFragment());
     }
 
     public Game() {
+        console.clear()
         this.deployAllAlliesCharacters();
         this.selectAlliesCharacters();
         if (this.team) {
             while (!this.isBossDefeated && this.isAlive) {
-                const mouvementChoice = new Menu("Where do you want to move", "Select a direction", this.floor.actualRoom.possibleMovements)
+                const mouvementChoice = new Menu(this.floor.ShowFloor(), "Select a direction", this.floor.actualRoom.possibleMovements);
+                const mouvement = mouvementChoice.Naviguate();
+                console.clear();
                 console.log(this.floor.actualRoom.possibleMovements);
-                
-                this.floor.ShowFloor()
-                console.log(this.floor.actualPostion)
-                const mouvement = mouvementChoice.Naviguate()
-                console.clear()
-                console.log(this.floor.actualRoom.possibleMovements)
                 switch (this.floor.actualRoom.possibleMovements[mouvement]) {
                     case ("Up") : this.floor.Move(Orientation.Up); break;
                     case ("Down") : this.floor.Move(Orientation.Down); break;
@@ -97,46 +97,47 @@ export class GameManager {
                         break;
                     }
                     case (3) : {
-                        const possibleItems = [new Ether(), new Potion(), new StarFragment(), new SemiStar()]
-                        const randomValue = Math.floor(Math.random()*4)
-                        const hadItem = new Menu("You find a chest", `there is ${possibleItems[randomValue].name} in`, ["Use it !", "Just take it"])
-                        const choice = hadItem.Naviguate()
+                        const possibleItems = [new Ether(), new Potion(), new StarFragment(), new SemiStar()];
+                        const randomValue = Math.floor(Math.random()*4);
+                        const hadItem = new Menu("You find a chest", `there is ${possibleItems[randomValue].name} in`, ["Use it !", "Just take it"]);
+                        const choice = hadItem.Naviguate();
                         switch (choice) {
                             case (0) : {
-                                const names = []
+                                const names = [];
                                 for (const ally of this.allies) {
-                                    names.push(ally.name)
+                                    names.push(ally.name);
                                 }
-                                const chooseTarget = new Menu("You want to use the item", "Who's the target", names)
+                                const chooseTarget = new Menu("You want to use the item", "Who's the target", names);
                                 const targetChoice = chooseTarget.Naviguate();
-                                possibleItems[randomValue].UseItem(this.allies[targetChoice])
+                                possibleItems[randomValue].UseItem(this.allies[targetChoice]);
                                 break;
                             }
                             case (1) : {
-                                this.team?.inventory.AddItem(possibleItems[randomValue])
+                                this.team?.inventory.AddItem(possibleItems[randomValue]);
                             }
                         }
                         break;
                     }
                     case (4) :{
-                        const characterHit = Math.floor(Math.random()*3)
-                        const HPLoose = Math.floor(Math.random()*20)
-                            this.team.team[characterHit].HP -= (HPLoose+10)
-                        console.clear()
-                        console.log(`You open a chest and got traped, ${this.team.team[characterHit]} was hurt and loose ${(HPLoose+10)} HP`)
+                        const characterHit = Math.floor(Math.random()*3);
+                        const HPLoose = Math.floor(Math.random()*20);
+                        this.team.team[characterHit].HP -= (HPLoose+10);
+                        console.clear();
+                        console.log(`You open a chest and got traped, someone in your team was hurt and loose ${(HPLoose+10)} HP`);
+                        prompt("")
                         break;
                     }
                     case (5) :{
                         // const enemies = [this.SelectRandomEnemy(), this.SelectRandomEnemy()]
-                        const fight = new Fight(this.team, [], new Cyclops())
-                        const hasSlayTheBoss = fight.TurnFigth()
+                        const fight = new Fight(this.team, [], new Cyclops());
+                        const hasSlayTheBoss = fight.TurnFigth();
                         console.clear();
                         if (!hasSlayTheBoss) {
                             console.log("You lose");
                             this.isAlive = false;
                         } else {
                             console.log("You have Win !!!");
-                            this.isBossDefeated = true
+                            this.isBossDefeated = true;
                         }
                     }
                 }
@@ -144,13 +145,9 @@ export class GameManager {
         }
     }
 
-    public DisplayGame() {
-
-    }
-
     private SelectRandomEnemy():Character {
-        const enemies = [new Zombie(), new Skeleton(), new Slime()]
-        const randomValue = Math.floor(Math.random()*3)
-        return enemies[randomValue]
+        const enemies = [new Zombie(), new Skeleton(), new Slime()];
+        const randomValue = Math.floor(Math.random()*3);
+        return enemies[randomValue];
     }
 }

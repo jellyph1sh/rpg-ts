@@ -7,8 +7,6 @@ export class Menu {
     private input = 0;
 
     constructor(title:string, description:string, buttons:string[]) {
-
-        console.clear()
         this.title = title;
         this.description = description;
         this.buttons = buttons;
@@ -33,6 +31,7 @@ export class Menu {
         
         let enter = false;
         while (!enter) {
+            console.clear()
             this.Display();
             const buf = new Uint8Array(3);
             Deno.stdin.setRaw(true);

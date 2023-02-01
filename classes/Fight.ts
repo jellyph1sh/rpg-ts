@@ -15,7 +15,7 @@ export class Fight {
         this.allyTeam  = allyTeam;
         this.enemyTeam = enemyTeam;
         if (boss) {
-            this.enemyTeam.push(boss)
+            this.enemyTeam.push(boss);
         }
         this.order = this.SetFightOrder();
         this.EnemyAnnouncement();
@@ -35,7 +35,7 @@ export class Fight {
         const order:Character[] = [];
         const Characters:Character[] = this.enemyTeam.concat(this.allyTeam.team);
         let fastestCharacter:Character;
-        for (let i =0; i<((this.allyTeam.team.length)+ (this.enemyTeam.length)); i++) {
+        for (let i=0; i<(this.allyTeam.team.length+this.enemyTeam.length); i++) {
             fastestCharacter = Characters[0];
             for (const character of Characters) {
                 if (fastestCharacter.atkSpeed < character.atkSpeed) {
@@ -48,20 +48,17 @@ export class Fight {
         return order;
     }   
 
-    // retourne vrais si c'est le joueur qui gagnier le fight sinon retour faux
     public TurnFigth():boolean{
         console.clear();
         console.log(this.DisplayHP());
         console.log(`Turn ${this.whoTurn} \n`);
-        // await this.delay(2);
-        prompt("")
+        prompt("");
         for (const character of this.order) {
             if (!character.CanBeRevive() && !this.IsTeamDead(this.allyTeam.team) && !this.IsTeamDead(this.enemyTeam)) {
                 if (this.enemyTeam.indexOf(character) == -1) {
-                    console.log(`to the turn of ${character.name}` );
+                    console.log(`to the turn of ${character.name}`);
                     prompt("");
                     this.TurnAlly(character);
-                    // await this.delay(2);
                     console.clear();
                     console.log(this.DisplayHP());
                 } else {
@@ -71,8 +68,7 @@ export class Fight {
                     } else {
                         this.TurnEnemy(character);
                     }
-                    // await this.delay(2);
-                    prompt("")
+                    prompt("");
                     console.clear();
                     console.log(this.DisplayHP());
                     this.order = this.SetFightOrder();
@@ -98,7 +94,7 @@ export class Fight {
         }
     }
 
-    private turnBoss(boss:Cyclops){
+    private turnBoss(boss:Cyclops) {
         const zoneAttack = Math.floor(Math.random() * 100);
         if (zoneAttack < 30) {
             boss.UseSkill(this.allyTeam.team);
@@ -142,7 +138,7 @@ export class Fight {
     }
 
 
-    public DisplayHP():string{
+    public DisplayHP():string {
         let display = "";
         display += ("here are the HP of your team: \n");
         for (const ally of this.allyTeam.team) {
@@ -176,12 +172,6 @@ export class Fight {
             }
         }
         return answer
-    }
-
-    private delay(n:number) {
-        return new Promise(function(resolve) {
-            setTimeout(resolve,n*1000);
-        });
     }
 }
 

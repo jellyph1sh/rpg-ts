@@ -6,27 +6,25 @@ import { Menu } from "../Menu.ts";
 
 export class Magician extends Ally{
     protected _skillsName = ["FireBall", "Avada Kedavra"];
+    protected _team!: Group;
 
     public get skillsName():string[] {
         return this._skillsName;
     }
 
     constructor() {
-        super("Magician", 10, 20, 55, 100, 150)
+        super("Magician", 10, 20, 55, 100, 150);
     }
 
     public UseSkill(skillIndex:number, targetsEnemy:Character[], _targetAlly:Group) {
         const enemiesNames:string[] = [];
                 for (const enemy of targetsEnemy) {
-                    enemiesNames.push(enemy.name)
+                    enemiesNames.push(enemy.name);
                 }
-                const selectTarget = new Menu("Launch a skill", "Choose an enemy", enemiesNames)
-                const selectedTarget = selectTarget.Naviguate()
+                const selectTarget = new Menu("Launch a skill", "Choose an enemy", enemiesNames);
+                const selectedTarget = selectTarget.Naviguate();
         switch (skillIndex) {
             case (0): {
-                console.log("FireBall");
-                prompt("")
-                
                 this.Skill1(targetsEnemy[selectedTarget]);
                 break;
             }
@@ -35,16 +33,14 @@ export class Magician extends Ally{
     }
 
     private Skill1(target:Character) {
-        const attack = new Attack([target], 60, "Magic")
-        console.log(attack)
-        prompt("")
-        attack.ApplyDmg()
-        this.mana -= 30
+        const attack = new Attack([target], 60, "Magic");
+        attack.ApplyDmg();
+        this.mana -= 30;
     }
 
     private Skill2(target:Character) {
-        const attack = new Attack([target], 90, "Magic")
-        attack.ApplyDmg()
-        this.mana -= 100
+        const attack = new Attack([target], 90, "Magic");
+        attack.ApplyDmg();
+        this.mana -= 100;
     }
 }

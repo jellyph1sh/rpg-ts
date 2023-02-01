@@ -8,15 +8,15 @@ export class Floor {
     private _maxRooms = 0;
 
     public get maxRooms():number {
-        return this._maxRooms
+        return this._maxRooms;
     }
 
     public set maxRooms(value:number) {
-        this._maxRooms = Math.max(Math.min(value, 25), 5)
+        this._maxRooms = Math.max(Math.min(value, 25), 5);
     }
 
     public get actualRoom():Room {
-        return this._actualRoom
+        return this._actualRoom;
     }
  
     constructor(maxRooms:number){
@@ -25,7 +25,7 @@ export class Floor {
         this._actualRoom = new Room(this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5], this.actualPostion, this.PossibleMoves());
     }
 
-    ShowFloor() {
+    ShowFloor():string {
         const parseMap = [];
         let stringMap = "";
         for (let pos=0; pos<25; pos++) {
@@ -57,7 +57,7 @@ export class Floor {
                     roomString += hWalls.downWall;
                 }
             } else {
-                roomString = "                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n";
+                roomString = "                   \n                   \n                   \n                   \n                   \n                   \n                   \n                   \n";
             }
             parseMap.push(roomString.split("\n"));
         }
@@ -72,7 +72,7 @@ export class Floor {
                 stringMap += "\n";
             }
         }
-        console.log(stringMap);
+        return stringMap;
     }
 
     private AddRoom(position:number, type:RoomType) {
@@ -84,7 +84,7 @@ export class Floor {
     }
 
     Move(orientation:Orientation) {
-        this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5] = 1
+        this.virtualFloor[Math.floor(this.actualPostion/5)][this.actualPostion%5] = 1;
         if (((this.actualPostion + orientation) >= 0 && (this.actualPostion + orientation) < 25)) {
             if (this.virtualFloor[Math.floor((this.actualPostion+orientation)/5)][(this.actualPostion+orientation)%5]) {
                 this.actualPostion += orientation;
@@ -95,37 +95,37 @@ export class Floor {
 
     public PossibleMoves():string[] {
         const nextOrientations:string[] = [];
-        const orientations = [Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right]
+        const orientations = [Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right];
         for (const nextOrientation of orientations) {
             if (!(this.actualPostion+nextOrientation>24 || this.actualPostion+nextOrientation<0)) {
                 if (nextOrientation == Orientation.Left) {
                     if ((this.actualPostion)%5!=0) {
                         if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
-                            nextOrientations.push("Left")
+                            nextOrientations.push("Left");
                         }
                     }
                 } else if (nextOrientation == Orientation.Right) {
                     if ((this.actualPostion)%5!=4) {
                         if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
-                            nextOrientations.push("Right")
+                            nextOrientations.push("Right");
                         }
                     }
                 } else if (nextOrientation == Orientation.Up) {
                     if (this.actualPostion >= 5) {
                         if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
-                            nextOrientations.push("Up")
+                            nextOrientations.push("Up");
                         }
                     }
                 } else if (nextOrientation == Orientation.Down) {
                     if (this.actualPostion < 20) {
                         if (this.virtualFloor[Math.floor((this.actualPostion+nextOrientation)/5)][(this.actualPostion+nextOrientation)%5]!=0) {
-                            nextOrientations.push("Down")
+                            nextOrientations.push("Down");
                         }
                     }
                 }
             }
         }
-        return nextOrientations
+        return nextOrientations;
     }
 
     private Generation(MaxRooms:number, position=12, orientations:Orientation[]=[Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right]):void{
@@ -158,7 +158,7 @@ export class Floor {
             if ((newPosition)>= 0 && (newPosition)< 25) {
                 const nextPosition:number = this.virtualFloor[Math.floor(newPosition/5)][newPosition%5];
                 if (!nextPosition) {
-                    const roomType:RoomType =  roomTypes[Math.floor(Math.random()*4)];
+                    const roomType:RoomType = roomTypes[Math.floor(Math.random()*4)];
                     this.AddRoom(newPosition, roomType);
                     orientations = [Orientation.Up, Orientation.Down, Orientation.Left, Orientation.Right];
                     const index = orientations.indexOf(orientation*-1, 0);
@@ -189,10 +189,10 @@ export class Floor {
 }
 
 enum vWalls {
-    Wall = "│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n",
-    OpenLeftWall = "│                 │\n│                 │\n│                 │\n┘                 │\n┐                 │\n│                 │\n│                 │\n│                 │\n",
-    OpenRightWall = "│                 │\n│                 │\n│                 │\n│                 └\n│                 ┌\n│                 │\n│                 │\n│                 │\n",
-    OpenBothWall = "│                 │\n│                 │\n│                 │\n┘                 └\n┐                 ┌\n│                 │\n│                 │\n│                 │\n"
+    Wall = "│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n│                 │\n",
+    OpenLeftWall = "│                 │\n│                 │\n┘                 │\n┐                 │\n│                 │\n│                 │\n",
+    OpenRightWall = "│                 │\n│                 │\n│                 └\n│                 ┌\n│                 │\n│                 │\n",
+    OpenBothWall = "│                 │\n│                 │\n┘                 └\n┐                 ┌\n│                 │\n│                 │\n"
 }
 
 enum hWalls {

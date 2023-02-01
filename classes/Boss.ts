@@ -3,7 +3,7 @@ import { Character } from "./Character.ts";
 
 export class Boss extends Character {
 
-    constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number, skill:Attack) {
+    constructor(name: string, atkValue: number, defValue: number, atkSpeed: number, maxHealth: number, _skill:Attack) {
         super(name, atkValue, defValue, atkSpeed, maxHealth);
     }
 }

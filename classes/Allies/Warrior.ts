@@ -4,6 +4,7 @@ import { Group } from "../Group.ts";
 
 export class Warrior extends Ally {
     protected _skillsName = [];
+    protected _team!: Group;
 
     constructor() {
         super("Warrior", 65, 65, 50, 120, 0);
