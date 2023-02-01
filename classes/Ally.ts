@@ -7,6 +7,7 @@ export abstract class Ally extends Character {
     private _mana:number;
     private _manaMax:number;
     protected abstract _skillsName:string[];
+    protected abstract _team:Group;
     
     public get mana() {
         return this._mana;
@@ -18,6 +19,10 @@ export abstract class Ally extends Character {
 
     public get manaMax():number {
         return this._manaMax;
+    }
+
+    public set team(team:Group) {
+        this._team = team
     }
 
     constructor(name:string, atkValue:number, defValue:number, atkSpeed:number, maxHealth:number, manaMax:number) {

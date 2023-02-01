@@ -5,6 +5,7 @@ import { Group } from "../Group.ts";
 
 export class Paladin extends Ally {
     protected _skillsName = ["Divine Hammer"];
+    protected _team!: Group;
 
     public get skillsName():string[] {
         return this._skillsName;

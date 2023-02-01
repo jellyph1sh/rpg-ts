@@ -6,6 +6,7 @@ import { Menu } from "../Menu.ts";
 
 export class Magician extends Ally{
     protected _skillsName = ["FireBall", "Avada Kedavra"];
+    protected _team!: Group;
 
     public get skillsName():string[] {
         return this._skillsName;

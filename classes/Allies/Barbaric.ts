@@ -7,6 +7,7 @@ import { Menu } from "../Menu.ts";
 
 export class Barbaric extends Ally{
     protected _skillsName = ["Berzerker"];
+    protected _team!: Group;
 
     public get skillsName():string[] {
         return this._skillsName;

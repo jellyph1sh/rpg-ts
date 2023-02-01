@@ -39,7 +39,7 @@ export class GameManager {
     private constructor(){}
 
     public deployAllAlliesCharacters():void {
-        this.allies = [new Barbaric(), new Magician(), new Paladin(), new Presbyter(), new Thief(this.team as Group), new Warrior()]
+        this.allies = [new Barbaric(), new Magician(), new Paladin(), new Presbyter(), new Thief(), new Warrior()]
     }
 
     public selectAlliesCharacters():void {
@@ -56,6 +56,9 @@ export class GameManager {
             alliesName.splice(index, 1);
         }
         this.team = new Group(localTeam[0], localTeam[1], localTeam[2], new Inventory());
+        for (const ally of localTeam) {
+            ally.team = this.team
+        }
         this.team.inventory.AddItem(new Potion());
         this.team.inventory.AddItem(new Potion());
         this.team.inventory.AddItem(new Ether());

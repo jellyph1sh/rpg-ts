@@ -5,6 +5,7 @@ import { Menu } from "../Menu.ts";
 
 export class Presbyter extends Ally {
     protected _skillsName = ["Heal"];
+    protected _team!: Group;
 
     public get skillsName():string[] {
         return this._skillsName;
