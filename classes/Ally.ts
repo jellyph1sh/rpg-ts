@@ -2,11 +2,11 @@ import { Character } from "./Character.ts"
 import { Menu } from "./Menu.ts";
 import { Fight } from "./Fight.ts";
 import { Group } from "./Group.ts";
-import { Attack } from "./Attack.ts";
 
-export class Ally extends Character {
+export abstract class Ally extends Character {
     private _mana:number;
     private _manaMax:number;
+    protected abstract _skillsName:string[];
     
     public get mana() {
         return this._mana;
@@ -26,28 +26,40 @@ export class Ally extends Character {
         this._manaMax = manaMax
     }
 
+    public abstract UseSkill(skillIndex:number, targetEnemy:Character[], targetAlly:Group):void;
+
     public Turn(enemyTeam: Character[], fight: Fight, group:Group) {
         let restart = true;
         while (restart) {
             restart = false;
-            const displayActions = new Menu(fight.DisplayHP(), `to the turn of ${this.name} `, ["single attack","skil","inventory"]);
+            const displayActions = new Menu(fight.DisplayHP(), `to the turn of ${this.name} `, ["single attack","skill","inventory"]);
             const choosedAction = displayActions.Naviguate();
             switch (choosedAction) {
-            case 0:
-                this.AllyAttack(enemyTeam, fight);
-                break;
-            case 2:
-                if (group.inventory.items.length != 0) {
-                    restart = !this.AllyInventory(group,fight);
-                } else {
-                    console.log("you no longer have an object");
-                    restart = true;
-                    prompt("");
+                case 0: {
+                    this.AllyAttack(enemyTeam, fight);
+                    break;
                 }
-                break;
+                case 1: {
+                    const selectSkill = new Menu(fight.DisplayHP(), "Choose a skill", this._skillsName)
+                    const selectedSkill = selectSkill.Naviguate()
+                    console.log(selectedSkill)
+                    prompt("")
+                    this.UseSkill(selectedSkill, enemyTeam, group)
+                    break;
+                }
+                case 2: {
+                    if (group.inventory.items.length != 0) {
+                        restart = !this.AllyInventory(group,fight);
+                    } else {
+                        console.log("you no longer have an object");
+                        restart = true;
+                        // prompt("");
+                    }
+                    break;
+                }
             }
         }
-        prompt("");
+        // prompt("");
     }
 
     private AllyAttack(enemyTeam:Character[], fight:Fight) {
@@ -78,15 +90,9 @@ export class Ally extends Character {
         const choosedItem = inventoryMenu.Naviguate();
         const selectAllyMenu = new Menu(fight.DisplayHP(),"on which ?",allyNames);
         const indexAlly = selectAllyMenu.Naviguate();
-        const itemUsed = group.UseItem(choosedItem, group.team[indexAlly]);
-        if (itemUsed) {
-            group.inventory.RemoveItem(choosedItem);
-            return true;
-        } else {
-            console.log(`you can't use ${group.inventory.items[choosedItem].name} on ${group.team[indexAlly].name}`);
-            prompt("");
-            return false;
-        }
+        group.UseItem(choosedItem, group.team[indexAlly]);
+        group.inventory.RemoveItem(choosedItem);
+        return true;
     }
 
     public RestoreMana(regenValue:number) {

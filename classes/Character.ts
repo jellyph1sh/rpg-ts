@@ -42,11 +42,12 @@ export class Character {
 
     public set HP(value: number){
         this._HP = Math.max(Math.min(value,this.maxHealth),0);
+        Math.floor(this._HP)
     } 
    
 
     public Hit(targets: Character[]) {
-        const simpleAttack = new Attack("normal", targets, this.atkValue, "Physical", 0);
+        const simpleAttack = new Attack(targets, this.atkValue, "Physical");
         simpleAttack.ApplyDmg();
     }
 
